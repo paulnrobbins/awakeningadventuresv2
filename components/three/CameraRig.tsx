@@ -91,8 +91,22 @@ interface CameraRigProps {
   shake?: number;
 }
 
-function easeOut(t: number) {
-  return 1 - Math.pow(1 - t, 3);
+/**
+ * Camera interpolation curve.
+ *
+ * We use LINEAR interpolation (`t` returned as-is) so the camera moves
+ * in lock-step with the scroll wheel — the visitor scrolls, the camera
+ * travels. Earlier this was a power3 ease-out, which finished 87% of
+ * the move in the first 50% of scroll, making the camera "snap then
+ * sit still" on every scene. Linear gives the true cinematic-scrub
+ * feel of a Lando-Norris / Awwwards-style site where the camera is
+ * effectively a Pro Tools playhead bound to the timeline.
+ *
+ * The eased path is left available for future opt-in (Welcome's
+ * handheld micro-shake, for example, could ease in to feel handheld).
+ */
+function linear(t: number) {
+  return t;
 }
 
 export function CameraRig({ shake = 0 }: CameraRigProps) {
@@ -128,8 +142,8 @@ export function CameraRig({ shake = 0 }: CameraRigProps) {
         tmpPos.current.y += Math.cos(t2 * 1.3) * 0.03 * shake;
       }
 
-      camera.position.lerp(tmpPos.current, 1 - Math.pow(0.10, delta));
-      currentTarget.current.lerp(tmpTarget.current, 1 - Math.pow(0.10, delta));
+      camera.position.lerp(tmpPos.current, 1 - Math.pow(0.06, delta));
+      currentTarget.current.lerp(tmpTarget.current, 1 - Math.pow(0.06, delta));
       camera.lookAt(currentTarget.current);
       return;
     }
@@ -148,7 +162,7 @@ export function CameraRig({ shake = 0 }: CameraRigProps) {
     const b = KEYFRAMES[i + 1] ?? a;
     const span = b.t - a.t || 1;
     const local = clamp((p - a.t) / span, 0, 1);
-    const eased = easeOut(local);
+    const eased = linear(local);
 
     tmpPos.current.set(
       THREE.MathUtils.lerp(a.pos[0], b.pos[0], eased),
@@ -167,8 +181,13 @@ export function CameraRig({ shake = 0 }: CameraRigProps) {
       tmpPos.current.y += Math.cos(t2 * 1.3) * 0.03 * shake;
     }
 
-    camera.position.lerp(tmpPos.current, 1 - Math.pow(0.10, delta));
-    currentTarget.current.lerp(tmpTarget.current, 1 - Math.pow(0.10, delta));
+    // Camera-position lerp slowed from 0.10 → 0.06 so the camera
+    // glides toward the scroll-derived target rather than snapping
+    // into place. Combined with the linear progress curve above,
+    // this is what produces "cinematic camera moving with you" as
+    // opposed to "camera teleports to next keyframe."
+    camera.position.lerp(tmpPos.current, 1 - Math.pow(0.06, delta));
+    currentTarget.current.lerp(tmpTarget.current, 1 - Math.pow(0.06, delta));
     camera.lookAt(currentTarget.current);
   });
 

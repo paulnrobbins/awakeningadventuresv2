@@ -5,7 +5,6 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { ACCOMMODATIONS } from '@/content/accommodations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ImageCarousel } from '@/components/ui/ImageCarousel';
-import { setCameraOverride, STAY_TARGETS } from '@/lib/cameraOverride';
 import { cn } from '@/lib/utils';
 
 /**
@@ -16,8 +15,11 @@ import { cn } from '@/lib/utils';
  * accommodation has photos (e.g. Stargazer), an ImageCarousel renders
  * beside the text card. Otherwise the text card takes the full width.
  *
- * Camera (CameraRig) walks past each accommodation in 3D space at the
- * same time the DOM caption + carousel fade in.
+ * Camera motion is driven by CameraRig's progress-based keyframes
+ * (one per accommodation). We DELIBERATELY no longer call
+ * setCameraOverride from here — the override snap-locked the camera
+ * per-card, breaking the cinematic scrub feel where the camera should
+ * continuously walk between accommodations as the visitor scrolls.
  */
 export function SceneStay() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,9 +37,6 @@ export function SceneStay() {
 
     const triggers: ScrollTrigger[] = [];
     items.forEach((item) => {
-      const accomId = item.getAttribute('data-accom') ?? '';
-      const target = STAY_TARGETS[accomId];
-
       const st = ScrollTrigger.create({
         trigger: item,
         start: 'top 70%',
@@ -45,16 +44,12 @@ export function SceneStay() {
         toggleActions: 'play reverse play reverse',
         onEnter: () => {
           gsap.to(item, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' });
-          // Move camera to this accommodation the instant its card
-          // fades in — no progress-based lag.
-          if (target) setCameraOverride(target);
         },
         onLeave: () => {
           gsap.to(item, { opacity: 0, y: -20, duration: 0.6, ease: 'power2.in' });
         },
         onEnterBack: () => {
           gsap.to(item, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
-          if (target) setCameraOverride(target);
         },
         onLeaveBack: () => {
           gsap.to(item, { opacity: 0, y: 20, duration: 0.6, ease: 'power2.in' });
@@ -64,21 +59,8 @@ export function SceneStay() {
       triggers.push(st);
     });
 
-    // Section boundary — when the WHOLE Stay section leaves the viewport
-    // (top or bottom), clear the camera override so the next scene's
-    // progress-based camera takes back over.
-    const boundary = ScrollTrigger.create({
-      trigger: ref.current,
-      start: 'top bottom',
-      end: 'bottom top',
-      onLeave: () => setCameraOverride(null),
-      onLeaveBack: () => setCameraOverride(null),
-    });
-    triggers.push(boundary);
-
     return () => {
       triggers.forEach((t) => t.kill());
-      setCameraOverride(null);
     };
   }, [reduced]);
 

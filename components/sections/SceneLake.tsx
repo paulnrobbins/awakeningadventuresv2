@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { setCameraOverride, setLakeActive, STAY_TARGETS } from '@/lib/cameraOverride';
+import { setLakeActive } from '@/lib/cameraOverride';
 import { EXCURSION_CTAS } from '@/content/excursions';
 
 /**
@@ -13,11 +13,15 @@ import { EXCURSION_CTAS } from '@/content/excursions';
  * CTAs are pulled from content/excursions.ts so they CANNOT drift from
  * the /excursions page — both surfaces read the same constants.
  *
- * Sync mechanism: this section owns BOTH the camera target (via
- * setCameraOverride) AND the 3D lake mount flag (via setLakeActive).
- * That means the 3D lake (LakeStage + drifting pontoon) appears and
- * disappears in lockstep with this DOM section's ScrollTrigger range,
- * eliminating the "text says lake but world says forest" drift.
+ * Sync mechanism: this section owns the 3D lake MOUNT flag (via
+ * setLakeActive). The 3D lake (LakeStage + drifting pontoon) appears
+ * and disappears in lockstep with this DOM section's ScrollTrigger
+ * range, eliminating the "text says lake but world says forest" drift.
+ *
+ * Camera POSITION during the lake range is driven by CameraRig's
+ * progress-based lake keyframe (t=0.64), not a snap-locked override —
+ * that's what keeps the cinematic scrub continuous as the visitor
+ * rolls into and out of the lake.
  */
 
 export function SceneLake() {
@@ -34,11 +38,13 @@ export function SceneLake() {
       return;
     }
 
-    const lakeTarget = STAY_TARGETS['lake'];
-
     // Outer trigger — mounts/unmounts the 3D lake stage. Generous
     // bounds so the world finishes its transition before the visitor
-    // gets here, and lingers until the DOM section is fully out.
+    // gets here, and lingers until the DOM section is fully out. The
+    // camera itself is driven by CameraRig's progress-based keyframes
+    // (lake keyframe at t=0.64), NOT a snap-locked override — that's
+    // what gives the camera the continuous cinematic scrub the visitor
+    // feels as they roll into and out of the lake range.
     const mountTrig = ScrollTrigger.create({
       trigger: ref.current,
       start: 'top bottom',
@@ -49,9 +55,7 @@ export function SceneLake() {
       onLeaveBack: () => setLakeActive(false),
     });
 
-    // Inner trigger — text reveal + camera override + sound crossfade.
-    // Tighter bounds so the camera locks onto the lake exactly when the
-    // copy is on screen, not before and not after.
+    // Inner trigger — text reveal + sound crossfade. No camera lock.
     const trig = ScrollTrigger.create({
       trigger: ref.current,
       start: 'top 65%',
@@ -64,7 +68,6 @@ export function SceneLake() {
           stagger: 0.10,
           ease: 'power3.out',
         });
-        if (lakeTarget) setCameraOverride(lakeTarget);
         if (!fired.current) {
           sound.fade('ambient-forest', 0.32, 0.06, 2000);
           sound.fade('ambient-lake', 0, 0.2, 2200);
@@ -73,16 +76,11 @@ export function SceneLake() {
           fired.current = true;
         }
       },
-      onEnterBack: () => {
-        if (lakeTarget) setCameraOverride(lakeTarget);
-      },
-      onLeave: () => setCameraOverride(null),
       onLeaveBack: () => {
         gsap.to(items, { opacity: 0, y: 28, duration: 0.6, ease: 'power2.in' });
         sound.fade('ambient-lake', 0.2, 0, 1400);
         sound.fade('water-lap', 0.18, 0, 1400);
         sound.fade('ambient-forest', 0.06, 0.18, 1400);
-        setCameraOverride(null);
         fired.current = false;
       },
     });
@@ -92,7 +90,6 @@ export function SceneLake() {
     return () => {
       trig.kill();
       mountTrig.kill();
-      setCameraOverride(null);
       setLakeActive(false);
     };
   }, [reduced]);

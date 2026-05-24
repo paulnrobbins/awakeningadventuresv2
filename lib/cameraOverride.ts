@@ -59,10 +59,19 @@ export function subscribeLakeActive(fn: (v: boolean) => void): () => void {
 }
 
 /**
- * Named overrides keyed by accommodation id — Scene components import
- * this map and call setCameraOverride(STAY_TARGETS[id]) on card enter.
- * Keeping the position table here keeps the camera positions for the
- * Stay-walk co-located with the override mechanism.
+ * Per-accommodation camera position table.
+ *
+ * Originally used as snap-lock targets via setCameraOverride from
+ * SceneStay / SceneShower / SceneLake. That snap broke the cinematic
+ * scrub feel — the camera would teleport per card instead of walking
+ * between them. The override path is now unused by Scene components;
+ * camera motion is driven by CameraRig's progress-based keyframes,
+ * which mirror these positions one-to-one.
+ *
+ * Kept exported as the single source of truth for "where does the
+ * camera land for accommodation X" — CameraRig consumes the same
+ * positions in its KEYFRAMES table, and any new scene that wants
+ * the override behavior can opt in via setCameraOverride.
  */
 export const STAY_TARGETS: Record<string, CameraOverride> = {
   stargazer:    { pos: [-3.0, 1.8,  4.0], target: [0,   1.2,   0] },
