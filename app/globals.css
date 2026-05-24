@@ -1,0 +1,62 @@
+@import '../styles/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Component-layer rules. Kept thin — Tailwind utilities do most of the work,
+   and tokens.css owns global resets + brand-level base styles. */
+
+@layer components {
+  /* Section wrapper — used by every Scene component. The clamp-based
+     padding lives in tailwind.config.ts as section-x / section-y but is
+     applied here as a composable class so scenes can override per-scene.
+
+     min-h bumped from 100vh → 140vh so each scene has more scroll
+     runway, giving transitions room to breathe instead of snapping
+     scene-to-scene. Per-scene overrides (e.g. SceneLake at 180vh,
+     SceneStay at 400vh) take precedence via inline class min-h-[Nvh].
+  */
+  .scene {
+    @apply relative w-full;
+    min-height: 140vh;
+    padding-block: theme('spacing.section-y');
+    padding-inline: theme('spacing.section-x');
+  }
+
+  /* Editorial paragraph — used inside scenes for the on-screen captions.
+     Caps width at ~50ch for readability over photo billboards. */
+  .editorial {
+    @apply font-sans text-lede text-cream/85;
+    max-width: 50ch;
+    text-wrap: pretty;
+  }
+
+  /* readable-card / readable-pill were removed — text now renders
+     directly on the 3D world in light forest green. If a card is ever
+     needed again it should be added back here and applied to specific
+     scenes rather than globally. */
+
+  /* Primary CTA — Bricolage display at title scale, fire-amber on hover,
+     magnetism is added in Phase 5 via Framer-Motion-free GSAP draggable.
+     Kept deliberately spare so it can be composed with extra utilities
+     per-scene (e.g. amber-on-dark, dark-on-cream). */
+  .cta-primary {
+    @apply font-display text-title text-cream;
+    @apply inline-flex items-center gap-3;
+    @apply transition-colors duration-500 ease-cinematic;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .cta-primary:hover,
+  .cta-primary:focus-visible {
+    color: rgb(var(--aa-amber));
+  }
+  .cta-primary::after {
+    content: '→';
+    transition: transform 600ms var(--ease-cinematic);
+  }
+  .cta-primary:hover::after {
+    transform: translateX(8px);
+  }
+}

@@ -1,0 +1,128 @@
+/* ---------------------------------------------------------------------
+   Awakening Adventures — Design Tokens · DAYTIME PALETTE
+   The variable NAMES are kept from the night build so existing
+   component classes (bg-night, text-cream, etc.) continue to work.
+   The VALUES are inverted — what was dark is now light, what was light
+   is now dark. Same semantic roles, flipped pigment.
+
+       Token name     Old (night) value    New (daytime) value
+       ----------     -----------------    -------------------
+       --aa-night     near-black (#0B0F14) paper cream (#F5EFE2)   ← dominant bg
+       --aa-cream     prairie cream        forest ink (#1F2E1F)    ← primary text
+       --aa-amber     fire-amber (#C77A3A) fire-amber (unchanged)  ← accent
+       --aa-forest    forest green env     sage daylight (#7B9377) ← secondary detail
+
+   Components don't need editing — `bg-night` still means "dominant
+   surface", `text-cream` still means "primary text color", they just
+   now read as paper-on-ink instead of ink-on-paper.
+--------------------------------------------------------------------- */
+
+:root {
+  /* Color tokens — rgb triples for Tailwind alpha syntax */
+  --aa-night: 245 239 226;     /* paper / morning haze — DAYTIME DOMINANT BG */
+  --aa-cream: 79 125 90;       /* LIGHT FOREST GREEN — primary text */
+  --aa-amber: 199 122 58;      /* warm fire-amber — accent (unchanged) */
+  --aa-forest: 123 147 119;    /* sage daylight foliage — secondary detail */
+
+  /* Type stack — values come from layout.tsx font loaders */
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: system-ui, -apple-system, sans-serif;
+
+  /* Cinematic motion curve, shared by GSAP + CSS */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-camera: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layered z-index scale */
+  --z-world: 0;
+  --z-content: 10;
+  --z-nav: 30;
+  --z-loader: 40;
+  --z-modal: 50;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: rgb(var(--aa-night));   /* now paper cream */
+  color: rgb(var(--aa-cream));        /* now forest ink */
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::selection {
+  background: rgb(var(--aa-amber) / 0.85);
+  color: rgb(var(--aa-night));        /* paper on amber */
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--aa-amber));
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(var(--aa-cream) / 0.55);
+}
+
+/* Daytime film grain — softer, multiply blend instead of overlay */
+.film-grain {
+  position: relative;
+}
+.film-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  mix-blend-mode: multiply;
+  opacity: 0.04;
+}
