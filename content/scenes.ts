@@ -40,14 +40,11 @@ export const SCENES: SceneConfig[] = [
     hdri: 'kiara_1_dawn_2k.hdr',           // soft early-morning warmth
     ambient: 'wind-trees',
     fog: '#E8E0CF',                          // warm haze, not black
-    // fogNear/fogFar widened for drone-altitude establishing shot.
-    // Camera sits ~110m from origin at the opening aerial; the
-    // previous 12/80 range made everything past 80m fully fogged
-    // (the "white cloud" blocking the view). 80/400 keeps the
-    // property crystal clear in the foreground while the horizon
-    // still fades into warm atmosphere.
-    fogNear: 80,
-    fogFar: 400,
+    // Sized for a moderate aerial opening at pos [22, 22, 32]
+    // (~37m from origin). Property reads clear in the foreground,
+    // horizon fades into warm atmosphere.
+    fogNear: 45,
+    fogFar: 220,
   },
   {
     id: 'sanctuary',
@@ -55,11 +52,11 @@ export const SCENES: SceneConfig[] = [
     hdri: 'kloofendal_43d_clear_2k.hdr',   // clear midday sky
     ambient: 'ambient-forest',
     fog: '#D8DBC4',                          // bright paper-sage
-    // Bumped near/far so the descent from aerial still reads
-    // clear as the camera passes through the sanctuary fog scene
-    // on its way down to the Stargazer.
-    fogNear: 60,
-    fogFar: 260,
+    // Mid-descent through the property zone — camera between 11m
+    // and 22m from origin during this scene. Tight enough to feel
+    // intimate, generous enough not to wash the far buildings.
+    fogNear: 40,
+    fogFar: 200,
   },
   {
     id: 'stay',
