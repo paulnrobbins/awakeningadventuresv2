@@ -45,20 +45,23 @@ export default function AdventuresPage() {
             $50 off every adventure when you book lodging with us.
           </p>
           <p className="editorial mt-3 text-cream">
-            Stay a night at the Stargazer, Driftwood, Homestead, or Serene
-            Seven and your sunset pontoon trip or island camping trip is $50
-            off. Mention your reservation when booking.
+            Stay a night at the Stargazer, Driftwood, Homestead, Serene Seven,
+            or the primitive camping site and your sunset pontoon trip or
+            island camping trip is $50 off. Mention your reservation when
+            booking.
           </p>
         </aside>
 
         {/* === Boat tours ============================================= */}
         <section id="boat-tours" className="max-w-[88rem] mt-20 scroll-mt-32">
-          {/* Looping muted video — 6 boat-tour clips concatenated back-to-back. */}
-          <div className="mb-10">
+          {/* Looping muted video — 6 boat-tour clips concatenated back-to-back.
+              Portrait 9/16. Constrained to a phone-shaped column on desktop so
+              the portrait container doesn't span the full section width. */}
+          <div className="mb-10 max-w-sm mx-auto">
             <LoopingVideo
               src="/videos/boat-tours.mp4"
               alt="Sunset pontoon excursions on Watts Bar Lake"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
 
@@ -159,12 +162,13 @@ export default function AdventuresPage() {
         <section id="island-camping" className="max-w-[88rem] mt-32 scroll-mt-32">
           {/* Looping muted video — 3 island-camping clips back-to-back
               (IMG_5715 clipped to first 9 seconds). Plus the new multiple-
-              tents photo Paul saved into /public/images/island-camping/. */}
-          <div className="mb-8">
+              tents photo Paul saved into /public/images/island-camping/.
+              Portrait 9/16 video; the photo below stays 16/9 landscape. */}
+          <div className="mb-8 max-w-sm mx-auto">
             <LoopingVideo
               src="/videos/island-camping.mp4"
               alt="Primitive island camping on Watts Bar Lake — multiple campsites"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
           <div className="mb-10 aspect-[16/9] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
@@ -277,12 +281,13 @@ export default function AdventuresPage() {
 
         {/* === Prayer hikes ========================================== */}
         <section id="prayer-hikes" className="max-w-[88rem] mt-32 scroll-mt-32">
-          {/* Looping muted trail video (IMG_7078 from Grounds). */}
-          <div className="mb-10">
+          {/* Looping muted trail video (IMG_7078 from Grounds).
+              Portrait 9/16, constrained to a phone-shaped column on desktop. */}
+          <div className="mb-10 max-w-sm mx-auto">
             <LoopingVideo
               src="/videos/trails.mp4"
               alt="Trails and forest — guided spiritual prayer hike footage"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
           {/* Hidden remnant of the old photo strip removed in this pass.

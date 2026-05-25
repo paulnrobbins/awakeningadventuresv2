@@ -7,7 +7,7 @@ import { LoopingVideo } from '@/components/ui/LoopingVideo';
 export const metadata = {
   title: 'Lodging',
   description:
-    'Four ways to stay on 42 acres in Grandview, TN — the Stargazer clear cabin, Driftwood treehouse, Homestead glamping tent, and Serene Seven prairie tent. Or reserve the whole property for your group.',
+    'Five ways to stay on 42 acres in Grandview, TN — the Stargazer clear cabin, Driftwood treehouse, Homestead glamping tent, Serene Seven prairie tent, and the primitive camping site. Or reserve the whole property for your group.',
 };
 
 /**
@@ -90,9 +90,10 @@ export default function LodgingPage() {
         </ul>
 
         {/* Whole-property option — distinct tile, amber border, full-width.
-            For groups, retreats, family reunions. Includes RV spot + the
-            large primitive camping site that are only available with the
-            full-property booking (covered on /groups). */}
+            For groups, retreats, family reunions. Includes the RV spot,
+            which is only available with the full-property booking
+            (covered on /groups). The primitive camping site is bookable
+            on its own too — listed as a separate card above. */}
         <section className="mt-32 max-w-[88rem] mx-auto">
           <a
             href={FULL_PROPERTY_BOOKING_URL}
@@ -124,10 +125,10 @@ export default function LodgingPage() {
                 </h2>
                 <p className="editorial mt-6 text-cream">
                   Reserve every cabin, tent, fire pit, and trail for your
-                  group. Includes the RV spot and the large primitive
-                  camping site that aren&rsquo;t available on individual
-                  stays. Two-night minimum. Sleeps up to ~30 guests across
-                  the four dwellings and the primitive camp.
+                  group. Includes the RV spot, which isn&rsquo;t available
+                  on individual stays. Two-night minimum. Sleeps up to
+                  ~30 guests across the four dwellings and the primitive
+                  camp.
                 </p>
                 <p
                   className="font-display text-lede text-amber mt-8 inline-flex items-center gap-2"

@@ -8,7 +8,7 @@ export const metadata = { title: 'Group retreats' };
 const AMENITIES: { label: string; href?: string }[] = [
   { label: '4 forest dwellings to choose from on 42 acres' },
   { label: 'RV spot — included only with whole-property bookings' },
-  { label: 'Large primitive camping site — included only with whole-property bookings' },
+  { label: 'Large primitive camping site — extra capacity for groups who want to camp out' },
   { label: 'Private treehouse shower' },
   { label: 'Mountain prayer shelter' },
   {
@@ -77,11 +77,12 @@ export default function GroupsPage() {
           </ul>
         </section>
 
-        {/* === Whole-property extras ================================ */}
-        {/* Two add-ons that DO NOT come with individual stays — they
-            unlock only when the whole 42 acres is reserved. Surfaced
-            here as their own sections so retreat leaders see exactly
-            what's bundled. */}
+        {/* === Whole-property extras + camp-out option ============== */}
+        {/* The RV spot is whole-property-only — surfaced here for
+            retreat leaders. The primitive camping site is bookable on
+            its own too (see the lodging page), but it's also the way
+            to scale a group past the four dwellings, so it gets a
+            section here as well. */}
 
         <section className="mt-20 max-w-[88rem]">
           <p className="eyebrow text-amber mb-3">Whole-property add-on</p>
@@ -113,7 +114,7 @@ export default function GroupsPage() {
         </section>
 
         <section className="mt-20 max-w-[88rem]">
-          <p className="eyebrow text-amber mb-3">Whole-property add-on</p>
+          <p className="eyebrow text-amber mb-3">Camp-out option for larger groups</p>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 lg:order-2 aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
               <img
