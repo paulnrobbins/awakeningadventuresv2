@@ -80,8 +80,12 @@ const KEYFRAMES: CameraKeyframe[] = [
   // Serene Seven, looking into the back corner of the property where
   // the campsite lives. The DOM card carries the photo.
   { t: 0.355, pos: [-18,  2.0, -10],   target: [-22, 1.0,  -26] },
-  // Shower house
-  { t: 0.385, pos: [14,   3.6,  16],   target: [20,  3.0,    8] },
+  // Shower scene — re-aimed at the Driftwood treehouse (per Paul's
+  // direction). The text card overlay says "Shower in the trees" so
+  // framing the treehouse behind it sells the "in the trees" idea
+  // visually. Mirrors the Driftwood keyframe at t=0.190 — same camera
+  // position + look-target, just played at the shower scroll point.
+  { t: 0.385, pos: [16,   4.0,  -6.0], target: [22,  4.0,  -16] },
   // Trails — wide eye-level view down the central trail corridor.
   { t: 0.475, pos: [0,    2.0,  -3],   target: [0,   1.8,  -18] },
   // Lake — shoreside view with the dock and moored pontoon.
