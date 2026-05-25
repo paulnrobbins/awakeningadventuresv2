@@ -20,9 +20,9 @@
 :root {
   /* Color tokens — rgb triples for Tailwind alpha syntax */
   --aa-night: 245 239 226;     /* paper / morning haze — DAYTIME DOMINANT BG */
-  --aa-cream: 79 125 90;       /* LIGHT FOREST GREEN — primary text */
+  --aa-cream: 31 77 44;        /* DEEP FOREST GREEN — primary text */
   --aa-amber: 199 122 58;      /* warm fire-amber — accent (unchanged) */
-  --aa-forest: 123 147 119;    /* sage daylight foliage — secondary detail */
+  --aa-forest: 75 110 79;      /* mid forest foliage — secondary detail */
 
   /* Type stack — values come from layout.tsx font loaders */
   --font-display: Georgia, 'Times New Roman', serif;

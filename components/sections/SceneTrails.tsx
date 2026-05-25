@@ -67,15 +67,20 @@ export function SceneTrails() {
       data-scene="trails"
     >
       <div className="relative z-[var(--z-content)] w-full max-w-[88rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <div data-trail-anim className="lg:col-span-5 max-w-[28rem] mx-auto w-full">
+        <div data-trail-anim className="lg:col-span-6 grid grid-cols-2 gap-4">
           <LoopingVideo
             src="/videos/trails.mp4"
             alt="Walking the trail through the sanctuary forest"
             aspect="aspect-[9/16]"
           />
+          <LoopingVideo
+            src="/videos/perspective-platform.mp4"
+            alt="The perspective tree platform — twenty-two feet up in two red oaks"
+            aspect="aspect-[9/16]"
+          />
         </div>
 
-        <div className="home-card lg:col-span-7 text-center lg:text-left">
+        <div className="home-card lg:col-span-6 text-center lg:text-left">
           <p data-trail-anim className="eyebrow text-cream/75 mb-6">Walk the trails</p>
           <p data-trail-anim className="font-display text-display text-cream leading-[1.0]">
             Three miles of trail. One rock bridge.<br />
