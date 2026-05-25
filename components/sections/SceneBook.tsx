@@ -128,7 +128,7 @@ export function SceneBook() {
                   {/* Card body — solid white with forest-ink text */}
                   <div className="flex flex-col flex-1 p-6">
                     <p className="eyebrow text-amber" style={{ color: '#C77A3A' }}>{a.kind}</p>
-                    <h3 className="font-display text-title mt-2 leading-[1.0]" style={{ color: '#1F2E1F' }}>{a.name}</h3>
+                    <h3 className="font-display text-title mt-2 leading-[1.0]" style={{ color: '#1F2E1F', textShadow: 'none' }}>{a.name}</h3>
                     <p className="font-sans text-body mt-3 leading-[1.5]" style={{ color: 'rgba(31,46,31,0.85)' }}>{a.hook}</p>
                     <p className="font-sans text-caption mt-3" style={{ color: 'rgba(31,46,31,0.6)' }}>{a.capacity}</p>
                     <p
@@ -207,7 +207,7 @@ export function SceneBook() {
               </p>
               <h3
                 className="font-display text-display mt-3 leading-[0.95]"
-                style={{ color: '#1F2E1F' }}
+                style={{ color: '#1F2E1F', textShadow: 'none' }}
               >
                 The Forty-Two.
               </h3>

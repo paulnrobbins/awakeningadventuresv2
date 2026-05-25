@@ -32,8 +32,6 @@ export function Footer() {
               >
                 265 Neck Rd, Grandview, TN 37337
               </a>
-              <br />
-              Twenty minutes from the Watts Bar Lake marina.
             </p>
           </div>
 
