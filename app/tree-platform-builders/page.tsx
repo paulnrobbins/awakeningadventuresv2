@@ -1,5 +1,6 @@
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 export const metadata = {
   title: 'Tree Platform Builders',
@@ -22,21 +23,29 @@ const ESTIMATE_INCLUDES = [
   'Written proposal',
 ];
 
-const FEATURED = [
+type FeaturedBuild = {
+  title: string;
+  note: string;
+  /** Either a still image OR a looping video. Exactly one is set. */
+  image?: string;
+  video?: string;
+};
+
+const FEATURED: FeaturedBuild[] = [
   {
     title: 'Magnolia tree playground',
     note: 'A multi-trunk magnolia turned into a play platform for the grandkids.',
-    image: '/images/perspective/2.jpg',
+    image: '/images/platform-builds/magnolia-playground.webp',
   },
   {
     title: 'One-tree, two-post platform',
     note: 'A standard build pattern — one anchoring tree paired with two ground posts.',
-    image: '/images/perspective/3.jpg',
+    image: '/images/platform-builds/tree-with-2-posts.webp',
   },
   {
     title: 'New Perspective',
     note: 'The 8×16 perspective platform built into two red oaks. Visit it on the property.',
-    image: '/images/perspective/1.jpg',
+    video: '/videos/perspective-platform.mp4',
   },
 ];
 
@@ -104,14 +113,23 @@ export default function TreePlatformBuildersPage() {
                 key={i}
                 className="bg-night/85 border border-cream/20 rounded-xl overflow-hidden"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-cream/10">
-                  <img
-                    src={f.image}
+                {f.video ? (
+                  <LoopingVideo
+                    src={f.video}
                     alt={`${f.title} — recent platform build`}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
+                    aspect="aspect-[4/3]"
+                    className="rounded-none"
                   />
-                </div>
+                ) : (
+                  <div className="aspect-[4/3] overflow-hidden bg-cream/10">
+                    <img
+                      src={f.image}
+                      alt={`${f.title} — recent platform build`}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
                 <div className="p-6">
                   <h2 className="font-display text-title text-cream leading-tight">
                     {f.title}

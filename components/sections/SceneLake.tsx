@@ -11,7 +11,7 @@ import { EXCURSION_CTAS } from '@/content/excursions';
  * Scene 5 — The Lake. Watts Bar pontoon + dock + horizon.
  *
  * CTAs are pulled from content/excursions.ts so they CANNOT drift from
- * the /excursions page — both surfaces read the same constants.
+ * the /adventures page — both surfaces read the same constants.
  *
  * Sync mechanism: this section owns the 3D lake MOUNT flag (via
  * setLakeActive). The 3D lake (LakeStage + drifting pontoon) appears

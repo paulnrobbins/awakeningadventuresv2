@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -68,19 +69,21 @@ export function SceneTrails() {
         <p data-trail-anim className="eyebrow text-cream/75 mb-6">Walk the trails</p>
         <p data-trail-anim className="font-display text-display text-cream leading-[1.0]">
           Three miles of trail. One rock bridge.<br />
-          Enough quiet to pray.
+          Enough quiet to seek God and His presence.
         </p>
         <p data-trail-anim className="editorial mt-8 mx-auto text-cream">
-          The trail passes the mountain prayer shelter — a small wooden
-          pavilion with a natural stone altar inspired by Luke 6:12, tucked
-          into the back corner of the sanctuary for solitude. Just past it,
-          the perspective tree platform sits twenty-two feet up in two red
-          oaks. Both are great places to pray and see God&rsquo;s creation.
+          Reconnect with your Creator through prayer trails led by host
+          Anthony. View God&rsquo;s creation from the perspective platform,
+          walk the rock bridge, and feel God&rsquo;s presence in the prayer
+          shelter.
         </p>
-        <p data-trail-anim className="editorial mt-4 mx-auto text-cream/85">
-          Guided prayer hikes are available on request. Talk to Anthony
-          when you arrive.
-        </p>
+        <Link
+          data-trail-anim
+          href="/sanctuary"
+          className="cta-primary mt-10 inline-flex"
+        >
+          Learn more
+        </Link>
       </div>
     </section>
   );

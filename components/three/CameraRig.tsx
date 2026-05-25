@@ -28,74 +28,70 @@ type CameraKeyframe = {
 };
 
 // Camera keyframes — each keyframe's `t` is set to the SCROLL-PROGRESS
-// MIDPOINT of the corresponding scene/card, computed from the actual
-// rendered scene heights:
+// START of the corresponding scene/card, so the subject is centered
+// the moment the section becomes visible (rather than after the user
+// has scrolled halfway through it). Linear interpolation between
+// adjacent keyframes makes the camera sweep continuously from one
+// focal point to the next as the visitor scrolls.
 //
-//   Hero       100vh   → progress 0.000 - 0.064  (midpoint 0.032)
-//   Property   140vh   → progress 0.064 - 0.153  (midpoint 0.108)
+// Scroll-progress boundaries derived from rendered scene heights:
+//
+//   Hero       100vh   → progress 0.000 - 0.064
+//   Property   140vh   → progress 0.064 - 0.153
 //   Stay       400vh   → progress 0.153 - 0.408  (4 sticky cards)
-//     Stargazer    → 0.153 - 0.217  (midpoint 0.185)
-//     Driftwood    → 0.217 - 0.281  (midpoint 0.249)
-//     Homestead    → 0.281 - 0.344  (midpoint 0.313)
-//     Serene Seven → 0.344 - 0.408  (midpoint 0.376)
-//   Shower     140vh   → progress 0.408 - 0.497  (midpoint 0.453)
-//   Trails     140vh   → progress 0.497 - 0.586  (midpoint 0.541)
-//   Lake       180vh   → progress 0.586 - 0.701  (midpoint 0.643)
-//   Welcome    140vh   → progress 0.701 - 0.790  (midpoint 0.745)
-//   Groups     140vh   → progress 0.790 - 0.879  (midpoint 0.835)
-//   Book       140vh   → progress 0.879 - 0.968  (midpoint 0.924)
-//   Footer      50vh   → progress 0.968 - 1.000
+//     Stargazer    → starts 0.153
+//     Driftwood    → starts 0.217
+//     Homestead    → starts 0.281
+//     Serene Seven → starts 0.344
+//   Shower     140vh   → starts 0.408
+//   Trails     140vh   → starts 0.497
+//   Lake       180vh   → starts 0.586
+//   Welcome    140vh   → starts 0.701
+//   Groups     140vh   → starts 0.790
+//   Book       140vh   → starts 0.879
+//   Footer      50vh   → starts 0.968
 //
-// Placement at midpoints means the camera is centered on each
-// accommodation/scene EXACTLY when its DOM content is most visible.
-// Linear interpolation between adjacent keyframes makes the camera
-// sweep continuously from one focal point to the next as the visitor
-// scrolls — the cinematic scrub.
+// Result: as the visitor enters each section, the camera is already
+// composed on that section's subject. As they scroll through the
+// section the camera drifts toward the next subject, arriving when
+// the next section's content fades in.
 const KEYFRAMES: CameraKeyframe[] = [
-  // Opening aerial — comfortable wide framing of the 42 acres without
-  // being so distant that buildings turn into specks. Held through the
-  // hero scene.
+  // Opening aerial — held through the entire hero scene so the
+  // visitor's first impression is the wide property.
   { t: 0.00,  pos: [22,   22,   32], target: [0,   0,    -10] },
-  // Mid-descent — partway between opening aerial and ground level.
-  // Lands inside the Property scene (~0.108) so the editorial copy
-  // appears while the camera is in this descending aerial.
-  { t: 0.11,  pos: [9,    11,   18], target: [0,   0.8,   -4] },
-  // Stargazer focus — keyframe at progress 0.185 (Stargazer card
-  // midpoint). Camera at low eye-level just south-west of the cabin
-  // looking at the cabin entrance. The Stargazer building is the
-  // dominant element behind the Stargazer card.
-  { t: 0.185, pos: [-3.0, 1.8,   4.0], target: [0,   1.2,    0] },
-  // Driftwood focus — keyframe at progress 0.249 (Driftwood card
-  // midpoint). Driftwood treehouse is at [22, 0, -16] in the canopy.
-  { t: 0.249, pos: [16,   4.0,  -6.0], target: [22,  4.0,  -16] },
-  // Homestead focus — keyframe at 0.313 (Homestead card midpoint).
-  // Homestead tent at [-22, 0, -6] in the prairie clearing.
-  { t: 0.313, pos: [-15,  2.4,   2.0], target: [-22, 1.2,   -6] },
-  // Serene Seven focus — keyframe at 0.376 (SS card midpoint). High
-  // western vantage so the tent reads against open sky + distant
-  // ridge, never through any forest canopy.
-  { t: 0.376, pos: [-28,  6.5, -14],   target: [-26, 1.0,  -24] },
-  // Shower house — keyframe at 0.453 (Shower scene midpoint).
-  // Treehouse shower at [20, 0, 8].
-  { t: 0.453, pos: [14,   3.6,  16],   target: [20,  3.0,    8] },
-  // Trails — keyframe at 0.541 (Trails scene midpoint). Wide
-  // eye-level view down the central trail corridor with prayer
-  // shelter on the left and perspective platform on the right.
-  { t: 0.541, pos: [0,    2.0,  -3],   target: [0,   1.8,  -18] },
-  // Lake — keyframe at 0.643 (Lake scene midpoint). Shoreside view
-  // with the dock leading diagonally into the lake on the left and
-  // the moored pontoon at its lakeside end.
-  { t: 0.643, pos: [-7,   3.2, -22],   target: [2,   0.4,  -40] },
-  // Welcome — keyframe at 0.745 (Welcome scene midpoint). Sitting
-  // at the fire pit which is at [-2, 0, -8] in world space.
-  { t: 0.745, pos: [-3.4, 1.2,  -5.0], target: [-2,  0.5,   -8] },
-  // Groups — keyframe at 0.835 (Groups scene midpoint). Full
-  // pull-back to see the entire property again, late afternoon.
-  { t: 0.835, pos: [14,   16,   20],   target: [-2,  0.5,   -6] },
-  // Book — keyframe at 0.924 (Book scene midpoint). Return to a
-  // composition close to the original hero so the visitor reads the
-  // final "Come and see" against the same anchor they entered with.
-  { t: 0.924, pos: [0,    1.4,   6.0], target: [0,   1.0,    0] },
+  // Property scene start — mid-descent. Lands at progress 0.064
+  // (when "Forty-two acres" copy enters viewport) so the camera is
+  // already moving from aerial toward the cabins as the copy reads.
+  { t: 0.064, pos: [12,   14,   22], target: [0,   0.8,   -4] },
+  // Stargazer — keyframe at section START (0.153). Stargazer cabin
+  // is centered the moment the Stargazer card becomes visible.
+  { t: 0.153, pos: [-3.0, 1.8,   4.0], target: [0,   1.2,    0] },
+  // Driftwood — at the Driftwood card's first scroll position.
+  { t: 0.217, pos: [16,   4.0,  -6.0], target: [22,  4.0,  -16] },
+  // Homestead — at the Homestead card's first scroll position.
+  { t: 0.281, pos: [-15,  2.4,   2.0], target: [-22, 1.2,   -6] },
+  // Serene Seven — at the Serene Seven card's first scroll position.
+  // High western vantage so the tent reads against open sky + ridge.
+  { t: 0.344, pos: [-28,  6.5, -14],   target: [-26, 1.0,  -24] },
+  // Shower house — at start of the Shower scene.
+  { t: 0.408, pos: [14,   3.6,  16],   target: [20,  3.0,    8] },
+  // Trails — at start of the Trails scene. Wide eye-level view
+  // straight down the central trail corridor (prayer shelter left,
+  // perspective platform right, central trail marker).
+  { t: 0.497, pos: [0,    2.0,  -3],   target: [0,   1.8,  -18] },
+  // Lake — at start of the Lake scene. Shoreside view with the dock
+  // leading into the water and the moored pontoon at its end.
+  { t: 0.586, pos: [-7,   3.2, -22],   target: [2,   0.4,  -40] },
+  // Welcome — at start of the Welcome scene. Sitting at the fire pit
+  // (the pit is at [-2, 0, -8] in world space).
+  { t: 0.701, pos: [-3.4, 1.2,  -5.0], target: [-2,  0.5,   -8] },
+  // Groups — at start of the Groups scene. Full pull-back to see the
+  // entire property at late afternoon.
+  { t: 0.790, pos: [14,   16,   20],   target: [-2,  0.5,   -6] },
+  // Book — at start of the Book scene. Return to a composition close
+  // to the original hero so the visitor reads the final "Come and
+  // see" against the same anchor they entered with.
+  { t: 0.879, pos: [0,    1.4,   6.0], target: [0,   1.0,    0] },
   // Footer hold — same position as Book so the camera doesn't drift
   // past the booking moment while the visitor scrolls through the
   // footer.

@@ -73,7 +73,7 @@ export function PreloadGate() {
           showHeadline ? 'opacity-100' : 'opacity-0',
         )}
       >
-        The forest is awake.
+        Loading God&rsquo;s Creation
       </p>
 
       <span className="sr-only">Loading</span>

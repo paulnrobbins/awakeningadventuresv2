@@ -64,8 +64,8 @@ export function SceneHero() {
           <span data-hero-anim="line3" className="block">Adventure of ALL.</span>
         </h1>
         <p data-hero-anim="sub" className="editorial mt-8 text-cream">
-          Forty-two acres. Twenty minutes from the Watts Bar Lake marina.
-          Hosted by Anthony and Barb.
+          42 acres of Tennessee woodland beauty, God&rsquo;s presence,
+          tents, treehouses, and adventures.
         </p>
       </div>
 

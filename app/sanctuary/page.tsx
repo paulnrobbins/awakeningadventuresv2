@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 export const metadata = {
   title: 'Sanctuary',
@@ -63,36 +65,40 @@ export default function SanctuaryPage() {
         </section>
 
         {/* Treehouse Shower */}
-        <section className="mt-20 max-w-[72rem]">
-          <h2 className="font-display text-title text-cream">Best treehouse shower in Tennessee</h2>
-          <p className="editorial mt-4 text-cream">
+        <section className="mt-20 max-w-[80rem]">
+          <h2 className="font-display text-title text-cream">Shower in the trees</h2>
+          <p className="editorial mt-4 text-cream max-w-[68rem]">
             Shower ten feet off the ground standing next to a live tree, with
-            the view of the canopy above. All-natural toiletries are provided
-            and the hot water is endless and on-demand.
+            the view of the canopy above. The best treehouse shower in
+            Tennessee.
           </p>
-          <ul className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <li key={n} className="aspect-[3/4] rounded-md overflow-hidden border border-cream/15 bg-cream/10">
-                <img
-                  src={`/images/shower/${n}.jpg`}
-                  alt={`Treehouse shower — view ${n}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </li>
-            ))}
-          </ul>
+          {/* Looping rotated video — IMG_7006 + IMG_6979 from Shower House,
+              both rotated 90° right in the FFmpeg conversion. */}
+          <div className="mt-8">
+            <LoopingVideo
+              src="/videos/shower.mp4"
+              alt="The treehouse shower — ten feet up next to a live tree"
+              aspect="aspect-[16/9]"
+            />
+          </div>
         </section>
 
         {/* Outdoor Kitchen */}
-        <section className="mt-20 max-w-[68rem]">
+        <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">Outdoor kitchen</h2>
-          <p className="editorial mt-4 text-cream">
+          <p className="editorial mt-4 text-cream max-w-[68rem]">
             A shared kitchen for all guests. Three-burner propane stove,
             Blackstone griddle, sink with hot running water, and the pots, pans,
             and dishes to feed up to twenty-five. When the whole property is
             booked for a group, the kitchen becomes yours exclusively.
           </p>
+          <div className="mt-8">
+            <LoopingVideo
+              src="/videos/kitchen.mp4"
+              alt="The outdoor kitchen — propane stove, Blackstone griddle, sink"
+              aspect="aspect-[16/9]"
+            />
+          </div>
         </section>
 
         {/* Trees + Wildlife */}
@@ -126,22 +132,18 @@ export default function SanctuaryPage() {
         {/* Trails */}
         <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">Trails</h2>
-          <ul className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[1, 2, 3, 4].map((n) => (
-              <li key={n} className="aspect-[4/3] rounded-md overflow-hidden border border-cream/15 bg-cream/10">
-                <img
-                  src={`/images/grounds/${n}.jpg`}
-                  alt={`Trails on the property — view ${n}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </li>
-            ))}
-          </ul>
+          {/* Looping trail video — IMG_7078 from Grounds */}
+          <div className="mt-6">
+            <LoopingVideo
+              src="/videos/trails.mp4"
+              alt="Walking trails through the forest sanctuary"
+              aspect="aspect-[16/9]"
+            />
+          </div>
           <p className="editorial mt-6 text-cream">
-            Over five miles of walking trails wind across the property, featuring
-            a wet-weather creek with a rock-bridge crossing. There&rsquo;s also a
-            curated{' '}
+            Over five miles of walking trails wind across the property,
+            featuring a wet-weather creek with a rock-bridge crossing.
+            There&rsquo;s also a curated{' '}
             <a
               href="https://awakeningadventuresllc.com/guided-spiritual-prayer-hikes-near-grandviewtn/"
               target="_blank"
@@ -161,23 +163,42 @@ export default function SanctuaryPage() {
             </a>{' '}
             before you arrive.
           </p>
+
+          {/* The rock bridge — its own moment */}
+          <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/sanctuary/rock-bridge.webp"
+                alt="The rock bridge across the wet-weather creek"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <p className="eyebrow text-amber mb-2">On the trail</p>
+              <h3 className="font-display text-title text-cream leading-tight">
+                The rock bridge.
+              </h3>
+              <p className="editorial mt-4 text-cream">
+                Hand-set stone across the wet-weather creek — a quiet
+                crossing point that doubles as a pause moment on the prayer
+                walk. Most guests stop here without being told to.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* New Perspective Tree Platform */}
         <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">New perspective tree platform</h2>
-          <ul className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[1, 2, 3, 4].map((n) => (
-              <li key={n} className="aspect-[4/3] rounded-md overflow-hidden border border-cream/15 bg-cream/10">
-                <img
-                  src={`/images/perspective/${n}.jpg`}
-                  alt={`Perspective tree platform — view ${n}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </li>
-            ))}
-          </ul>
+          {/* Looping muted video — IMG_7081 from Perspective Platform folder */}
+          <div className="mt-6">
+            <LoopingVideo
+              src="/videos/perspective-platform.mp4"
+              alt="The new perspective tree platform in two red oaks"
+              aspect="aspect-[16/9]"
+            />
+          </div>
           <p className="editorial mt-6 text-cream">
             An 8&times;16 platform nestled in two red oaks, just inside the
             forest. At eye level you&rsquo;re looking out at twenty-two feet
@@ -188,26 +209,34 @@ export default function SanctuaryPage() {
         </section>
 
         {/* Prayer Shelter */}
-        <section className="mt-20 max-w-[68rem]">
+        <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">Prayer shelter</h2>
-          <p className="editorial mt-4 text-cream">
-            Inspired by Luke 6:12 — &ldquo;Now it came to pass in those days
-            that Jesus went out to the mountain to pray, and continued all night
-            in prayer to God.&rdquo; There&rsquo;s a natural unhewn-stone altar,
-            built the way Exodus 20:25 talks about. Tucked into the back corner
-            of the sanctuary forest for maximum quiet and solitude. Seek God
-            alone or with a small group.
-          </p>
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 aspect-[16/10] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/sanctuary/prayer-shelter.webp"
+                alt="The mountain prayer shelter — open-sided wooden pavilion with natural-stone altar"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <p className="editorial text-cream">
+                Inspired by Luke 6:12 — &ldquo;Now it came to pass in those
+                days that Jesus went out to the mountain to pray, and
+                continued all night in prayer to God.&rdquo; There&rsquo;s a
+                natural unhewn-stone altar, built the way Exodus 20:25 talks
+                about. Tucked into the back corner of the sanctuary forest
+                for maximum quiet and solitude. Seek God alone or with a
+                small group.
+              </p>
+            </div>
+          </div>
         </section>
 
-        <a
-          href={process.env.NEXT_PUBLIC_FAREHARBOR_URL ?? '#book'}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-primary mt-16"
-        >
+        <Link href="/lodging" className="cta-primary mt-16 inline-flex">
           Come and see
-        </a>
+        </Link>
       </main>
       <Footer />
     </>

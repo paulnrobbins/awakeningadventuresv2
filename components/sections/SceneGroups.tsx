@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ReviewMarquee } from '@/components/ui/ReviewMarquee';
-import { FULL_PROPERTY_BOOKING_URL } from '@/content/accommodations';
 
 /**
  * Scene 7 — Groups. Small-church retreat conversion path.
@@ -75,15 +75,13 @@ export function SceneGroups() {
           help you build the schedule, or we get out of the way so you
           can build your own. Two-night minimum on group bookings.
         </p>
-        <a
+        <Link
           data-groups-anim
-          href={FULL_PROPERTY_BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-primary mt-10"
+          href="/groups"
+          className="cta-primary mt-10 inline-flex"
         >
-          Reserve the whole 42 acres
-        </a>
+          Plan your retreat
+        </Link>
       </div>
 
       {/* Real reviews scrolling underneath — two rows in opposite directions */}

@@ -6,6 +6,8 @@ export const metadata = { title: 'Group retreats' };
 
 const AMENITIES: { label: string; href?: string }[] = [
   { label: '4 forest dwellings to choose from on 42 acres' },
+  { label: 'RV spot — included only with whole-property bookings' },
+  { label: 'Large primitive camping site — included only with whole-property bookings' },
   { label: 'Private treehouse shower' },
   { label: 'Mountain prayer shelter' },
   {
@@ -84,7 +86,71 @@ export default function GroupsPage() {
           </ul>
         </section>
 
-        <div className="mt-12 flex flex-col md:flex-row gap-8">
+        {/* === Whole-property extras ================================ */}
+        {/* Two add-ons that DO NOT come with individual stays — they
+            unlock only when the whole 42 acres is reserved. Surfaced
+            here as their own sections so retreat leaders see exactly
+            what's bundled. */}
+
+        <section className="mt-20 max-w-[88rem]">
+          <p className="eyebrow text-amber mb-3">Whole-property add-on</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/groups/rv-spot.webp"
+                alt="The RV spot on the property — available only with whole-property bookings"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <h2 className="font-display text-title text-cream leading-tight">
+                RV spot.
+              </h2>
+              <p className="editorial mt-4 text-cream">
+                A dedicated RV parking site with hookups, included when
+                you reserve the whole 42 acres. Park, plug in, and use it
+                as the home base for your group&rsquo;s leadership while
+                everyone else is in the cabins, tents, or primitive
+                campsite.
+              </p>
+              <p className="font-sans text-caption text-cream/70 mt-3">
+                Available only with whole-property bookings.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 max-w-[88rem]">
+          <p className="eyebrow text-amber mb-3">Whole-property add-on</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-5 lg:order-2 aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/groups/primitive-camping.webp"
+                alt="Large primitive camping site in the forest clearing"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="lg:col-span-7 lg:order-1">
+              <h2 className="font-display text-title text-cream leading-tight">
+                Large primitive camping site.
+              </h2>
+              <p className="editorial mt-4 text-cream">
+                A wide clearing deeper in the forest — bring your own
+                tents, hammocks, and gear. Fire ring, picnic logs, and
+                room to spread out. Ideal for a youth group, a men&rsquo;s
+                retreat overflow, or anyone who&rsquo;d rather sleep on
+                the ground than under a roof.
+              </p>
+              <p className="font-sans text-caption text-cream/70 mt-3">
+                Available only with whole-property bookings.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="mt-16 flex flex-col md:flex-row gap-8">
           <a
             href={FULL_PROPERTY_BOOKING_URL}
             target="_blank"

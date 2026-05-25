@@ -14,12 +14,16 @@ import { cn } from '@/lib/utils';
  * with the same link set.
  */
 const NAV_LINKS = [
+  { href: '/', label: 'Home' },
   { href: '/sanctuary', label: 'Sanctuary' },
   { href: '/lodging', label: 'Lodging' },
-  { href: '/excursions', label: 'Excursions' },
+  { href: '/adventures', label: 'Adventures' },
   { href: '/groups', label: 'Groups' },
+  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
+
+const DONATE_URL = 'https://awakeningadventuresllc.com/home/contact/';
 
 export function Nav({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
@@ -52,7 +56,7 @@ export function Nav({ className }: { className?: string }) {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-7 eyebrow">
+        <ul className="hidden md:flex items-center gap-6 eyebrow">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <Link
@@ -65,18 +69,33 @@ export function Nav({ className }: { className?: string }) {
           ))}
         </ul>
 
-        {/* Desktop booking CTA */}
-        <a
-          href="/#book"
-          className={cn(
-            'hidden md:inline-flex eyebrow text-cream',
-            'border border-cream/40 px-4 py-2 rounded-full',
-            'transition-colors duration-300 ease-cinematic',
-            'hover:border-amber hover:text-amber',
-          )}
-        >
-          Come and see
-        </a>
+        {/* Desktop CTAs: Donate + Come and see */}
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              'eyebrow text-cream',
+              'border border-amber px-4 py-2 rounded-full',
+              'transition-colors duration-300 ease-cinematic',
+              'hover:bg-amber hover:text-night',
+            )}
+          >
+            Donate
+          </a>
+          <Link
+            href="/lodging"
+            className={cn(
+              'eyebrow text-cream',
+              'border border-cream/40 px-4 py-2 rounded-full',
+              'transition-colors duration-300 ease-cinematic',
+              'hover:border-amber hover:text-amber',
+            )}
+          >
+            Come and see
+          </Link>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -127,14 +146,23 @@ export function Nav({ className }: { className?: string }) {
                 Need a Tree Platform built? Hire us.
               </Link>
             </li>
-            <li className="pt-3">
+            <li className="pt-3 flex flex-wrap gap-3">
               <a
-                href="/#book"
+                href={DONATE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="inline-block eyebrow text-cream border border-amber px-4 py-2 rounded-full hover:bg-amber hover:text-night transition-colors"
+              >
+                Donate
+              </a>
+              <Link
+                href="/lodging"
                 onClick={() => setOpen(false)}
                 className="inline-block eyebrow text-cream border border-cream/40 px-4 py-2 rounded-full hover:border-amber hover:text-amber transition-colors"
               >
                 Come and see
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

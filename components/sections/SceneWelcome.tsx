@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { REVIEWS } from '@/content/reviews';
@@ -79,12 +80,19 @@ export function SceneWelcome() {
         <div data-welcome-anim className="md:col-span-7">
           <p className="eyebrow text-cream/75 mb-4">Welcome</p>
           <h2 className="font-display text-display text-cream leading-[0.95]">
-            Hosted, in&nbsp;person, by<br />Anthony &amp; Barb.
+            Hosted by us,<br />Anthony and Barb.
           </h2>
           <p className="editorial mt-6 text-cream">
-            Reviews come back for them, not just for the property. Barb&rsquo;s
-            cookies are real. Anthony brings a cart to the car for your bags.
+            We&rsquo;re here to make your stay memorable, comfortable, and as
+            great as can be. Feel free to reach out to us so we can make your
+            trip perfect <span aria-label="love">❤️</span>
           </p>
+          <Link
+            href="/contact"
+            className="cta-primary mt-8 inline-flex"
+          >
+            Reach out
+          </Link>
         </div>
         <figure data-welcome-anim className="md:col-span-5">
           <blockquote className="font-display text-lede text-cream leading-snug">

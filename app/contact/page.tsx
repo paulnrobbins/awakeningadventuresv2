@@ -11,11 +11,11 @@ export default function ContactPage() {
         <header className="max-w-[58rem]">
           <p className="eyebrow text-cream/55 mb-4">Contact</p>
           <h1 className="font-display text-display text-cream leading-[0.95]">
-            Talk to Anthony &amp; Barb.
+            We&rsquo;d love to talk to you!
           </h1>
           <p className="editorial mt-8">
-            Email is the fastest path. For bookings, FareHarbor is wired
-            on every page — use the “Come and see” button.
+            Reach out if you have any questions, concerns or comments.
+            Email is the fastest path — we&rsquo;ll get back to you within a day.
           </p>
         </header>
 

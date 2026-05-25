@@ -18,6 +18,9 @@ export type Accommodation = {
   bookingId?: string;
   heroImage: string;
   ctaLabel: string;
+  /** Optional looping video walkthrough — preferred over the photo carousel
+   *  on the lodging page when present. */
+  video?: string;
   images?: string[];
   bookingUrl?: string;
 };
@@ -27,10 +30,11 @@ export const ACCOMMODATIONS: Accommodation[] = [
     id: 'stargazer',
     name: 'Stargazer',
     kind: 'Clear plexiglass cabin',
-    hook: 'A glass house under the Tennessee night sky. You sleep beneath the stars without the cold floor.',
+    hook: 'A clear house under the Tennessee night sky. You sleep beneath the stars without the cold floor.',
     capacity: 'Sleeps 2',
     heroImage: '/images/stargazer-hero.jpg',
     ctaLabel: 'Book the Stargazer',
+    video: '/videos/stargazer.mp4',
     images: [
       '/images/stargazer/1.jpg',
       '/images/stargazer/2.jpg',
@@ -44,10 +48,11 @@ export const ACCOMMODATIONS: Accommodation[] = [
     id: 'driftwood',
     name: 'Driftwood',
     kind: 'Treehouse',
-    hook: 'Built into the canopy. Wind moves the platform a little when the upper trees shift.',
+    hook: 'Sleep and rest in the trees.',
     capacity: 'Sleeps 2–3',
     heroImage: '/images/driftwood-hero.jpg',
     ctaLabel: 'Book Driftwood',
+    video: '/videos/driftwood.mp4',
     images: [
       '/images/driftwood/1.jpg',
       '/images/driftwood/2.jpg',
@@ -62,10 +67,11 @@ export const ACCOMMODATIONS: Accommodation[] = [
     id: 'homestead',
     name: 'Homestead',
     kind: 'Glamping tent',
-    hook: 'Wood-burning stove inside the canvas. The tent smells like the fire by morning.',
+    hook: 'Massive glamping tent with 2 beds and a wood stove.',
     capacity: 'Sleeps 2–4',
     heroImage: '/images/homestead-hero.jpg',
     ctaLabel: 'Book Homestead',
+    video: '/videos/homestead.mp4',
     images: [
       '/images/homestead/1.jpg',
       '/images/homestead/2.jpg',
@@ -81,9 +87,10 @@ export const ACCOMMODATIONS: Accommodation[] = [
     name: 'Serene Seven',
     kind: 'Glamping tent',
     hook: 'Open prairie pitch. The night sky here is the best on the property.',
-    capacity: 'Sleeps 2–4',
+    capacity: 'Sleeps 1–2',
     heroImage: '/images/serene-seven-hero.jpg',
     ctaLabel: 'Book Serene Seven',
+    video: '/videos/serene-seven.mp4',
     images: [
       '/images/serene-seven/1.jpg',
       '/images/serene-seven/2.jpg',

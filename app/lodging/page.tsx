@@ -1,10 +1,24 @@
+import Link from 'next/link';
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
-import { ACCOMMODATIONS } from '@/content/accommodations';
-import { ImageCarousel } from '@/components/ui/ImageCarousel';
+import { ACCOMMODATIONS, FULL_PROPERTY_BOOKING_URL } from '@/content/accommodations';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
-export const metadata = { title: 'Lodging' };
+export const metadata = {
+  title: 'Lodging',
+  description:
+    'Four ways to stay on 42 acres in Grandview, TN — the Stargazer clear cabin, Driftwood treehouse, Homestead glamping tent, and Serene Seven prairie tent. Or reserve the whole property for your group.',
+};
 
+/**
+ * Lodging page — four accommodation cards + one whole-property card.
+ *
+ * Each accommodation renders a looping muted video walkthrough (per
+ * `a.video` in content/accommodations.ts) instead of the old photo
+ * carousel. Videos were converted from StudioWork .MOV files via the
+ * FFmpeg batch in /scripts; the rotated shower-house pair lives there
+ * too (not on this page — it's on /sanctuary).
+ */
 export default function LodgingPage() {
   return (
     <>
@@ -15,52 +29,37 @@ export default function LodgingPage() {
           <h1 className="font-display text-display text-cream leading-[0.95]">
             Four places to wake up.
           </h1>
+          <p className="editorial mt-8 text-cream">
+            Pick a single stay, or reserve the entire 42 acres for your
+            group. Every booking includes the treehouse shower and the run
+            of the trails.
+          </p>
         </header>
 
         <ul className="space-y-24 md:space-y-32 max-w-[88rem] mx-auto">
           {ACCOMMODATIONS.map((a, i) => {
-            const hasImages = a.images && a.images.length > 0;
             const isReverse = i % 2 !== 0;
             return (
               <li
                 key={a.id}
-                className={
-                  hasImages
-                    ? 'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch'
-                    : 'border border-cream/15 rounded-xl p-8 bg-night/85'
-                }
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch"
               >
-                {hasImages ? (
-                  <>
-                    <div className={`lg:col-span-5 h-full ${isReverse ? 'lg:order-2 lg:col-start-8' : ''}`}>
-                      <ImageCarousel
-                        images={a.images!}
-                        altBase={`${a.name} — ${a.kind}`}
-                        className="h-full min-h-0"
-                      />
-                    </div>
-                    <div
-                      className={`lg:col-span-6 h-full ${isReverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-7'}`}
-                    >
-                      <div className="bg-night/90 border border-cream/20 rounded-xl p-8 md:p-10 h-full flex flex-col justify-center">
-                        <p className="eyebrow text-amber mb-2">{a.kind}</p>
-                        <h2 className="font-display text-title text-cream">{a.name}</h2>
-                        <p className="editorial mt-4 text-cream">{a.hook}</p>
-                        <p className="mt-3 font-sans text-caption text-cream/70">{a.capacity}</p>
-                        <a
-                          href={a.bookingUrl ?? process.env.NEXT_PUBLIC_FAREHARBOR_URL ?? '#book'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="cta-primary mt-6"
-                        >
-                          {a.ctaLabel}
-                        </a>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="eyebrow text-amber/80 mb-2">{a.kind}</p>
+                <div
+                  className={`lg:col-span-7 h-full ${isReverse ? 'lg:order-2 lg:col-start-6' : ''}`}
+                >
+                  <LoopingVideo
+                    src={a.video ?? ''}
+                    poster={a.images?.[0] ?? a.heroImage}
+                    alt={`${a.name} — ${a.kind} walkthrough`}
+                    aspect="aspect-[16/10]"
+                    className="h-full"
+                  />
+                </div>
+                <div
+                  className={`lg:col-span-5 h-full ${isReverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-8'}`}
+                >
+                  <div className="bg-night/90 border border-cream/20 rounded-xl p-8 md:p-10 h-full flex flex-col justify-center">
+                    <p className="eyebrow text-amber mb-2">{a.kind}</p>
                     <h2 className="font-display text-title text-cream">{a.name}</h2>
                     <p className="editorial mt-4 text-cream">{a.hook}</p>
                     <p className="mt-3 font-sans text-caption text-cream/70">{a.capacity}</p>
@@ -72,12 +71,68 @@ export default function LodgingPage() {
                     >
                       {a.ctaLabel}
                     </a>
-                  </>
-                )}
+                  </div>
+                </div>
               </li>
             );
           })}
         </ul>
+
+        {/* Whole-property option — distinct tile, amber border, full-width.
+            For groups, retreats, family reunions. Includes RV spot + the
+            large primitive camping site that are only available with the
+            full-property booking (covered on /groups). */}
+        <section className="mt-32 max-w-[88rem] mx-auto">
+          <a
+            href={FULL_PROPERTY_BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              group block rounded-xl overflow-hidden
+              bg-night/90 border-2 border-amber/70
+              shadow-[0_14px_40px_-16px_rgba(199,122,58,0.45)]
+              transition-all duration-500 ease-cinematic
+              hover:-translate-y-1 hover:border-amber
+              hover:shadow-[0_24px_70px_-20px_rgba(199,122,58,0.65)]
+            "
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 items-stretch">
+              <div className="md:col-span-7">
+                <LoopingVideo
+                  src="/videos/kitchen.mp4"
+                  poster="/images/stargazer/1.jpg"
+                  alt="The whole 42 acres — outdoor kitchen and grounds"
+                  aspect="aspect-[16/10]"
+                  className="h-full"
+                />
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center p-8 md:p-12">
+                <p className="eyebrow text-amber mb-3">Whole property</p>
+                <h2 className="font-display text-display text-cream leading-[0.95]">
+                  The Forty-Two.
+                </h2>
+                <p className="editorial mt-6 text-cream">
+                  Reserve every cabin, tent, fire pit, and trail for your
+                  group. Includes the RV spot and the large primitive
+                  camping site that aren&rsquo;t available on individual
+                  stays. Two-night minimum. Sleeps up to ~30 guests across
+                  the four dwellings and the primitive camp.
+                </p>
+                <p
+                  className="font-display text-lede text-amber mt-8 inline-flex items-center gap-2"
+                >
+                  Reserve the whole 42 acres
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-500 ease-cinematic group-hover:translate-x-2"
+                  >
+                    →
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </section>
       </main>
       <Footer />
     </>

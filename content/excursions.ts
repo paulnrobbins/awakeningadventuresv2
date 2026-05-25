@@ -1,7 +1,10 @@
 /**
- * Shared excursion CTAs — used by SceneLake (home scroll) AND
- * app/excursions/page.tsx so the labels + booking URLs can never drift
+ * Shared adventure CTAs — used by SceneLake (home scroll) AND
+ * app/adventures/page.tsx so the labels + booking URLs can never drift
  * apart. Editing here updates both surfaces.
+ *
+ * File name remains excursions.ts (rather than adventures.ts) so existing
+ * imports keep working — the underlying data is the same.
  */
 
 export const PONTOON_BOOKING_URL =
