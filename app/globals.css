@@ -32,13 +32,13 @@
     text-wrap: pretty;
   }
 
-  /* Translucent card surface for homepage scenes — 10% white background,
+  /* Translucent card surface for homepage scenes — 25% white background,
      no blur, subtle border. Applied to every text card from the hero
      through the Groups (For pastors...) section so they read as soft
      glass panels over the 3D world without obscuring the scene behind. */
   .home-card {
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.32);
     border-radius: 0.75rem;
     padding: 2rem;
   }

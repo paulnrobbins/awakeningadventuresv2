@@ -6,6 +6,7 @@ import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { setLakeActive } from '@/lib/cameraOverride';
 import { EXCURSION_CTAS } from '@/content/excursions';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 /**
  * Scene 5 — The Lake. Watts Bar pontoon + dock + horizon.
@@ -105,33 +106,51 @@ export function SceneLake() {
       className="scene flex items-end min-h-[180vh]"
       data-scene="lake"
     >
-      <div className="home-card relative z-[var(--z-content)] max-w-[64rem] sticky bottom-[18vh]">
-        <p data-lake-anim className="eyebrow text-cream/75 mb-4">On the water</p>
-        <h2 data-lake-anim className="font-display text-display text-cream leading-[0.95]">
-          Watts Bar Lake.<br />Twenty minutes from the property.
-        </h2>
-        <p data-lake-anim className="editorial mt-6 text-cream">
-          Captain Anthony at the helm — USCG-licensed. The pontoon waits at
-          the dock; the island campsite is just a short ride across. Lodging
-          guests get $50 off every excursion.
-        </p>
-        <div data-lake-anim className="mt-10 flex flex-col md:flex-row gap-6 md:gap-8">
-          <a
-            href={EXCURSION_CTAS.pontoon.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-primary"
-          >
-            {EXCURSION_CTAS.pontoon.label}
-          </a>
-          <a
-            href={EXCURSION_CTAS.islandCamping.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cta-primary"
-          >
-            {EXCURSION_CTAS.islandCamping.label}
-          </a>
+      <div className="relative z-[var(--z-content)] w-full max-w-[88rem] mx-auto sticky bottom-[12vh] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* Two portrait videos stacked side-by-side: boat tour + island
+            camping — both autoplay/loop/muted so the lake range carries
+            real footage even before the visitor opens /adventures. */}
+        <div data-lake-anim className="lg:col-span-6 grid grid-cols-2 gap-4">
+          <LoopingVideo
+            src="/videos/boat-tours.mp4"
+            alt="Sunset pontoon tour on Watts Bar Lake"
+            aspect="aspect-[9/16]"
+          />
+          <LoopingVideo
+            src="/videos/island-camping.mp4"
+            alt="Island camping on Watts Bar Lake"
+            aspect="aspect-[9/16]"
+          />
+        </div>
+
+        <div className="home-card lg:col-span-6">
+          <p data-lake-anim className="eyebrow text-cream/75 mb-4">On the water</p>
+          <h2 data-lake-anim className="font-display text-display text-cream leading-[0.95]">
+            Watts Bar Lake.<br />Twenty minutes from the property.
+          </h2>
+          <p data-lake-anim className="editorial mt-6 text-cream">
+            Captain Anthony at the helm — USCG-licensed. The pontoon waits
+            at the dock; the island campsite is just a short ride across.
+            Lodging guests get $50 off every excursion.
+          </p>
+          <div data-lake-anim className="mt-10 flex flex-col md:flex-row gap-4 md:gap-6">
+            <a
+              href={EXCURSION_CTAS.pontoon.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-primary"
+            >
+              {EXCURSION_CTAS.pontoon.label}
+            </a>
+            <a
+              href={EXCURSION_CTAS.islandCamping.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-primary"
+            >
+              {EXCURSION_CTAS.islandCamping.label}
+            </a>
+          </div>
         </div>
       </div>
     </section>

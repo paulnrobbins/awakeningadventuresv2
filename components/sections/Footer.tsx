@@ -24,7 +24,16 @@ export function Footer() {
               tents, treehouses, and adventures.
             </p>
             <p className="mt-3 font-sans text-caption text-cream/55">
-              Grandview, Tennessee · twenty minutes from the Watts Bar Lake marina.
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=265+Neck+Rd+Grandview+TN+37337"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber transition-colors"
+              >
+                265 Neck Rd, Grandview, TN 37337
+              </a>
+              <br />
+              Twenty minutes from the Watts Bar Lake marina.
             </p>
           </div>
 
@@ -103,7 +112,17 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-cream/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-caption text-cream/50">
-          <p>Awakening Adventures LLC · Grandview, TN</p>
+          <p>
+            Awakening Adventures LLC ·{' '}
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=265+Neck+Rd+Grandview+TN+37337"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber transition-colors"
+            >
+              265 Neck Rd, Grandview, TN 37337
+            </a>
+          </p>
           <p>
             Hosted by Anthony &amp; Barb. Site built by{' '}
             <a

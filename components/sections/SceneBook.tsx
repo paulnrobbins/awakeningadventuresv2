@@ -5,6 +5,7 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ACCOMMODATIONS, FULL_PROPERTY_BOOKING_URL } from '@/content/accommodations';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 /**
  * Scene 8 — Come and see.
@@ -77,13 +78,14 @@ export function SceneBook() {
           Come and see.
         </h2>
 
-        {/* Four accommodation cards — each shows its own exterior photo */}
-        <ul
-          data-book-anim
-          className="mt-16 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7 text-left"
-          aria-label="Accommodations"
-        >
-          {ACCOMMODATIONS.map((a) => {
+        {/* Five accommodation cards — 3 on top, 2 centered on bottom.
+            Each card hosts either a looping muted video walkthrough
+            (a.video) or, for the primitive-camp card which has no
+            walkthrough yet, the first hero image. */}
+        {(() => {
+          const top = ACCOMMODATIONS.slice(0, 3);
+          const bottom = ACCOMMODATIONS.slice(3);
+          const renderCard = (a: typeof ACCOMMODATIONS[number]) => {
             const cover = a.images?.[0] ?? a.heroImage;
             const href = a.bookingUrl ?? fareHarbor;
             return (
@@ -105,46 +107,32 @@ export function SceneBook() {
                   "
                   style={{ backgroundColor: '#ffffff' }}
                 >
-                  {/* Photo — fills the top of the card */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-cream/20">
-                    <img
-                      src={cover}
-                      alt={`${a.name} — ${a.kind}`}
-                      loading="lazy"
-                      className="
-                        absolute inset-0 w-full h-full object-cover
-                        transition-transform duration-700 ease-cinematic
-                        group-hover:scale-105
-                      "
+                  {/* Video (or image fallback) — top of the card */}
+                  {a.video ? (
+                    <LoopingVideo
+                      src={a.video}
+                      poster={cover}
+                      alt={`${a.name} — ${a.kind} walkthrough`}
+                      aspect="aspect-[4/3]"
+                      className="rounded-none"
                     />
-                  </div>
+                  ) : (
+                    <div className="relative w-full aspect-[4/3] overflow-hidden bg-cream/20">
+                      <img
+                        src={cover}
+                        alt={`${a.name} — ${a.kind}`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-cinematic group-hover:scale-105"
+                      />
+                    </div>
+                  )}
 
                   {/* Card body — solid white with forest-ink text */}
                   <div className="flex flex-col flex-1 p-6">
-                    <p
-                      className="eyebrow text-amber"
-                      style={{ color: '#C77A3A' }}
-                    >
-                      {a.kind}
-                    </p>
-                    <h3
-                      className="font-display text-title mt-2 leading-[1.0]"
-                      style={{ color: '#1F2E1F' }}
-                    >
-                      {a.name}
-                    </h3>
-                    <p
-                      className="font-sans text-body mt-3 leading-[1.5]"
-                      style={{ color: 'rgba(31,46,31,0.85)' }}
-                    >
-                      {a.hook}
-                    </p>
-                    <p
-                      className="font-sans text-caption mt-3"
-                      style={{ color: 'rgba(31,46,31,0.6)' }}
-                    >
-                      {a.capacity}
-                    </p>
+                    <p className="eyebrow text-amber" style={{ color: '#C77A3A' }}>{a.kind}</p>
+                    <h3 className="font-display text-title mt-2 leading-[1.0]" style={{ color: '#1F2E1F' }}>{a.name}</h3>
+                    <p className="font-sans text-body mt-3 leading-[1.5]" style={{ color: 'rgba(31,46,31,0.85)' }}>{a.hook}</p>
+                    <p className="font-sans text-caption mt-3" style={{ color: 'rgba(31,46,31,0.6)' }}>{a.capacity}</p>
                     <p
                       className="font-display text-lede text-amber mt-6 inline-flex items-center gap-2 mt-auto pt-6"
                       style={{ color: '#C77A3A' }}
@@ -161,8 +149,26 @@ export function SceneBook() {
                 </a>
               </li>
             );
-          })}
-        </ul>
+          };
+          return (
+            <div data-book-anim className="mt-16 md:mt-20 text-left">
+              <ul
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7"
+                aria-label="Accommodations (top row)"
+              >
+                {top.map(renderCard)}
+              </ul>
+              {bottom.length > 0 && (
+                <ul
+                  className="mt-6 md:mt-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-7 max-w-[60%] mx-auto"
+                  aria-label="Accommodations (bottom row)"
+                >
+                  {bottom.map(renderCard)}
+                </ul>
+              )}
+            </div>
+          );
+        })()}
 
         {/* Whole-property hero card — full width, photo on one side,
             copy on the other. Visually distinct from the four above. */}

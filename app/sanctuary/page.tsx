@@ -72,13 +72,12 @@ export default function SanctuaryPage() {
             the view of the canopy above. The best treehouse shower in
             Tennessee.
           </p>
-          {/* Looping rotated video — IMG_7006 + IMG_6979 from Shower House,
-              both rotated 90° right in the FFmpeg conversion. */}
-          <div className="mt-8">
+          {/* Looping muted shower walkthrough (portrait, 1080×1920). */}
+          <div className="mt-8 max-w-[26rem] mx-auto">
             <LoopingVideo
               src="/videos/shower.mp4"
               alt="The treehouse shower — ten feet up next to a live tree"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
         </section>
@@ -92,11 +91,11 @@ export default function SanctuaryPage() {
             and dishes to feed up to twenty-five. When the whole property is
             booked for a group, the kitchen becomes yours exclusively.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 max-w-[26rem] mx-auto">
             <LoopingVideo
               src="/videos/kitchen.mp4"
               alt="The outdoor kitchen — propane stove, Blackstone griddle, sink"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
         </section>
@@ -133,11 +132,11 @@ export default function SanctuaryPage() {
         <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">Trails</h2>
           {/* Looping trail video — IMG_7078 from Grounds */}
-          <div className="mt-6">
+          <div className="mt-6 max-w-[26rem] mx-auto">
             <LoopingVideo
               src="/videos/trails.mp4"
               alt="Walking trails through the forest sanctuary"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
           <p className="editorial mt-6 text-cream">
@@ -192,11 +191,11 @@ export default function SanctuaryPage() {
         <section className="mt-20 max-w-[80rem]">
           <h2 className="font-display text-title text-cream">New perspective tree platform</h2>
           {/* Looping muted video — IMG_7081 from Perspective Platform folder */}
-          <div className="mt-6">
+          <div className="mt-6 max-w-[26rem] mx-auto">
             <LoopingVideo
               src="/videos/perspective-platform.mp4"
               alt="The new perspective tree platform in two red oaks"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
           <p className="editorial mt-6 text-cream">

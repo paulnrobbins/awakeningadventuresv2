@@ -42,21 +42,21 @@ export default function LodgingPage() {
             return (
               <li
                 key={a.id}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
                 <div
-                  className={`lg:col-span-7 h-full ${isReverse ? 'lg:order-2 lg:col-start-6' : ''}`}
+                  className={`lg:col-span-5 ${isReverse ? 'lg:order-2 lg:col-start-8' : ''}`}
                 >
                   {a.video ? (
                     <LoopingVideo
                       src={a.video}
                       poster={a.images?.[0] ?? a.heroImage}
                       alt={`${a.name} — ${a.kind} walkthrough`}
-                      aspect="aspect-[16/10]"
-                      className="h-full"
+                      aspect="aspect-[9/16]"
+                      className="max-w-[26rem] mx-auto"
                     />
                   ) : (
-                    <div className="relative w-full h-full aspect-[16/10] rounded-xl overflow-hidden bg-cream/15">
+                    <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-cream/15 max-w-[26rem] mx-auto">
                       <img
                         src={a.images?.[0] ?? a.heroImage}
                         alt={`${a.name} — ${a.kind}`}
@@ -67,7 +67,7 @@ export default function LodgingPage() {
                   )}
                 </div>
                 <div
-                  className={`lg:col-span-5 h-full ${isReverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-8'}`}
+                  className={`lg:col-span-7 ${isReverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-6'}`}
                 >
                   <div className="bg-night/90 border border-cream/20 rounded-xl p-8 md:p-10 h-full flex flex-col justify-center">
                     <p className="eyebrow text-amber mb-2">{a.kind}</p>
@@ -107,17 +107,17 @@ export default function LodgingPage() {
               hover:shadow-[0_24px_70px_-20px_rgba(199,122,58,0.65)]
             "
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 items-stretch">
-              <div className="md:col-span-7">
+            <div className="grid grid-cols-1 md:grid-cols-12 items-center">
+              <div className="md:col-span-5 p-6 md:p-10">
                 <LoopingVideo
-                  src="/videos/kitchen.mp4"
+                  src="/videos/forty-two.mp4"
                   poster="/images/stargazer/1.jpg"
-                  alt="The whole 42 acres — outdoor kitchen and grounds"
-                  aspect="aspect-[16/10]"
-                  className="h-full"
+                  alt="The whole 42 acres — walkthrough"
+                  aspect="aspect-[9/16]"
+                  className="max-w-[24rem] mx-auto"
                 />
               </div>
-              <div className="md:col-span-5 flex flex-col justify-center p-8 md:p-12">
+              <div className="md:col-span-7 flex flex-col justify-center p-8 md:p-12">
                 <p className="eyebrow text-amber mb-3">Whole property</p>
                 <h2 className="font-display text-display text-cream leading-[0.95]">
                   The Forty-Two.

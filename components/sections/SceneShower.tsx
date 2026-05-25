@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { ImageCarousel } from '@/components/ui/ImageCarousel';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 /**
  * Shower in the Trees — bonus scene between Stay and Trails. The
@@ -76,17 +76,14 @@ export function SceneShower() {
           </p>
         </div>
 
-        {/* Carousel — pulls from /public/images/shower/ */}
+        {/* Looping muted shower walkthrough (rebuilt portrait, 1080×1920). */}
         <div data-shower-anim className="lg:col-span-5 lg:col-start-8">
-          <ImageCarousel
-            images={[
-              '/images/shower/1.jpg',
-              '/images/shower/2.jpg',
-              '/images/shower/3.jpg',
-              '/images/shower/4.jpg',
-              '/images/shower/5.jpg',
-            ]}
-            altBase="Treehouse shower — the bathhouse on the property"
+          <LoopingVideo
+            src="/videos/shower.mp4"
+            poster="/images/shower/1.jpg"
+            alt="Treehouse shower — ten feet up next to a live tree"
+            aspect="aspect-[9/16]"
+            className="max-w-[28rem] mx-auto"
           />
         </div>
       </div>

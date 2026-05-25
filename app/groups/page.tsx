@@ -43,11 +43,11 @@ export default function GroupsPage() {
           {/* Property loop — all 10 walkthrough videos concatenated.
               Gives leaders a moving sense of the whole 42 acres in one
               place. */}
-          <div className="mt-12">
+          <div className="mt-12 max-w-[28rem] mx-auto">
             <LoopingVideo
               src="/videos/forty-two.mp4"
               alt="The whole 42-acre property — cabins, trails, kitchen, lake, prayer shelter"
-              aspect="aspect-[16/9]"
+              aspect="aspect-[9/16]"
             />
           </div>
         </header>
