@@ -139,18 +139,14 @@ export default function TreePlatformBuildersPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 font-sans text-caption text-cream/70">
-            See the full photo album on{' '}
-            <a
-              href="https://photos.app.goo.gl/iAwLZSK44ao9qiFu8"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-4 hover:text-amber transition-colors"
-            >
-              Google Photos
-            </a>
-            .
-          </p>
+          <a
+            href="https://photos.app.goo.gl/iAwLZSK44ao9qiFu8"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-primary mt-8 inline-flex"
+          >
+            See the full photo album on Google Photos
+          </a>
         </section>
 
         {/* CTA */}

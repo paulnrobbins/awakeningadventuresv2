@@ -36,9 +36,13 @@ export function Footer() {
               <li><Link href="/lodging" className="hover:text-amber transition-colors">Lodging</Link></li>
               <li><Link href="/adventures" className="hover:text-amber transition-colors">Adventures</Link></li>
               <li><Link href="/groups" className="hover:text-amber transition-colors">Group retreats</Link></li>
-              <li><Link href="/about" className="hover:text-amber transition-colors">About us</Link></li>
+              <li><Link href="/about" className="hover:text-amber transition-colors">About Us</Link></li>
+              <li><Link href="/devotionals" className="hover:text-amber transition-colors">Devotionals</Link></li>
+              <li><Link href="/blog" className="hover:text-amber transition-colors">Blog</Link></li>
+              <li><Link href="/reviews" className="hover:text-amber transition-colors">Reviews</Link></li>
+              <li><Link href="/faq" className="hover:text-amber transition-colors">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-amber transition-colors">Contact</Link></li>
-              <li><Link href="/tree-platform-builders" className="hover:text-amber transition-colors">Need a Tree Platform built? Hire us.</Link></li>
+              <li><Link href="/tree-platform-builders" className="hover:text-amber transition-colors">Need a Tree Platform Built? Hire Us.</Link></li>
             </ul>
           </nav>
 
@@ -66,38 +70,50 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-            <Link
-              href="/lodging"
-              className={cn(
-                'mt-6 inline-flex items-center gap-2',
-                'font-display text-lede text-amber',
-                'transition-transform duration-500 ease-cinematic',
-              )}
-            >
-              Book your stay
-              <span aria-hidden="true">→</span>
-            </Link>
-            <a
-              href="https://awakeningadventuresllc.com/home/contact/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                'mt-4 inline-flex items-center gap-2',
-                'font-display text-lede text-cream',
-                'border border-amber/70 rounded-full px-5 py-2',
-                'transition-colors duration-500 ease-cinematic',
-                'hover:bg-amber hover:text-night hover:border-amber',
-              )}
-            >
-              Donate
-              <span aria-hidden="true">♡</span>
-            </a>
+            <div className="mt-8 flex flex-col items-start gap-5">
+              <Link
+                href="/lodging"
+                className={cn(
+                  'inline-flex items-center gap-2',
+                  'font-display text-lede text-amber',
+                  'transition-transform duration-500 ease-cinematic',
+                  'hover:translate-x-1',
+                )}
+              >
+                Book your stay
+                <span aria-hidden="true">→</span>
+              </Link>
+              <a
+                href="https://awakeningadventuresllc.com/home/contact/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  'inline-flex items-center gap-2',
+                  'font-display text-lede text-cream',
+                  'border border-amber/70 rounded-full px-5 py-2',
+                  'transition-colors duration-500 ease-cinematic',
+                  'hover:bg-amber hover:text-night hover:border-amber',
+                )}
+              >
+                Donate
+                <span aria-hidden="true">♡</span>
+              </a>
+            </div>
           </div>
         </div>
 
         <div className="mt-16 pt-8 border-t border-cream/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-caption text-cream/50">
           <p>Awakening Adventures LLC · Grandview, TN</p>
-          <p>Hosted by Anthony &amp; Barb. Site built by Kingdom Digital Services.</p>
+          <p>
+            Hosted by Anthony &amp; Barb. Site built by{' '}
+            <a
+              href="mailto:paulnrobbins@outlook.com"
+              className="underline underline-offset-4 hover:text-amber transition-colors"
+            >
+              Paul Robbins
+            </a>
+            .
+          </p>
         </div>
       </div>
     </footer>

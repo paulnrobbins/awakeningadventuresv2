@@ -59,42 +59,44 @@ const KEYFRAMES: CameraKeyframe[] = [
   // Opening aerial — held through the entire hero scene so the
   // visitor's first impression is the wide property.
   { t: 0.00,  pos: [22,   22,   32], target: [0,   0,    -10] },
-  // Property scene start — mid-descent. Lands at progress 0.064
-  // (when "Forty-two acres" copy enters viewport) so the camera is
-  // already moving from aerial toward the cabins as the copy reads.
-  { t: 0.064, pos: [12,   14,   22], target: [0,   0.8,   -4] },
-  // Stargazer — keyframe at section START (0.153). Stargazer cabin
-  // is centered the moment the Stargazer card becomes visible.
-  { t: 0.153, pos: [-3.0, 1.8,   4.0], target: [0,   1.2,    0] },
-  // Driftwood — at the Driftwood card's first scroll position.
-  { t: 0.217, pos: [16,   4.0,  -6.0], target: [22,  4.0,  -16] },
-  // Homestead — at the Homestead card's first scroll position.
-  { t: 0.281, pos: [-15,  2.4,   2.0], target: [-22, 1.2,   -6] },
-  // Serene Seven — at the Serene Seven card's first scroll position.
-  // High western vantage so the tent reads against open sky + ridge.
-  { t: 0.344, pos: [-28,  6.5, -14],   target: [-26, 1.0,  -24] },
-  // Shower house — at start of the Shower scene.
-  { t: 0.408, pos: [14,   3.6,  16],   target: [20,  3.0,    8] },
-  // Trails — at start of the Trails scene. Wide eye-level view
-  // straight down the central trail corridor (prayer shelter left,
-  // perspective platform right, central trail marker).
-  { t: 0.497, pos: [0,    2.0,  -3],   target: [0,   1.8,  -18] },
-  // Lake — at start of the Lake scene. Shoreside view with the dock
-  // leading into the water and the moored pontoon at its end.
-  { t: 0.586, pos: [-7,   3.2, -22],   target: [2,   0.4,  -40] },
-  // Welcome — at start of the Welcome scene. Sitting at the fire pit
-  // (the pit is at [-2, 0, -8] in world space).
-  { t: 0.701, pos: [-3.4, 1.2,  -5.0], target: [-2,  0.5,   -8] },
-  // Groups — at start of the Groups scene. Full pull-back to see the
-  // entire property at late afternoon.
-  { t: 0.790, pos: [14,   16,   20],   target: [-2,  0.5,   -6] },
-  // Book — at start of the Book scene. Return to a composition close
-  // to the original hero so the visitor reads the final "Come and
-  // see" against the same anchor they entered with.
-  { t: 0.879, pos: [0,    1.4,   6.0], target: [0,   1.0,    0] },
-  // Footer hold — same position as Book so the camera doesn't drift
-  // past the booking moment while the visitor scrolls through the
-  // footer.
+  // Property scene start — mid-descent. Camera is already moving
+  // from aerial toward the cabins as the "Forty-two acres" copy reads.
+  { t: 0.040, pos: [12,   14,   22], target: [0,   0.8,   -4] },
+  // Stargazer — keyframe pulled ~3% earlier than section start so
+  // the cabin is centered BEFORE the visitor finishes scrolling
+  // into the Stargazer card. Each subsequent keyframe shifts the
+  // same amount earlier so every subject leads its content.
+  { t: 0.125, pos: [-3.0, 1.8,   4.0], target: [0,   1.2,    0] },
+  // Driftwood
+  { t: 0.190, pos: [16,   4.0,  -6.0], target: [22,  4.0,  -16] },
+  // Homestead
+  { t: 0.255, pos: [-15,  2.4,   2.0], target: [-22, 1.2,   -6] },
+  // Serene Seven — high western vantage so tent reads against open
+  // sky + ridge.
+  { t: 0.320, pos: [-28,  6.5, -14],   target: [-26, 1.0,  -24] },
+  // Primitive Camp — there's no 3D structure for this site (it's an
+  // open clearing in the back of the property near the rock bridge),
+  // so the camera moves to a low forest-floor frame back-and-up from
+  // Serene Seven, looking into the back corner of the property where
+  // the campsite lives. The DOM card carries the photo.
+  { t: 0.355, pos: [-18,  2.0, -10],   target: [-22, 1.0,  -26] },
+  // Shower house
+  { t: 0.385, pos: [14,   3.6,  16],   target: [20,  3.0,    8] },
+  // Trails — wide eye-level view down the central trail corridor.
+  { t: 0.475, pos: [0,    2.0,  -3],   target: [0,   1.8,  -18] },
+  // Lake — shoreside view with the dock and moored pontoon.
+  { t: 0.560, pos: [-7,   3.2, -22],   target: [2,   0.4,  -40] },
+  // Welcome — sitting at the fire pit (the pit is at [-2, 0, -8]).
+  { t: 0.675, pos: [-3.4, 1.2,  -5.0], target: [-2,  0.5,   -8] },
+  // Groups — full pull-back to see the entire property at late
+  // afternoon.
+  { t: 0.765, pos: [14,   16,   20],   target: [-2,  0.5,   -6] },
+  // Book — return to a composition close to the original hero so
+  // the visitor reads the final "Come and see" against the same
+  // anchor they entered with.
+  { t: 0.855, pos: [0,    1.4,   6.0], target: [0,   1.0,    0] },
+  // Footer hold — same position so the camera doesn't drift past
+  // the booking moment while the visitor scrolls through the footer.
   { t: 1.000, pos: [0,    1.4,   6.0], target: [0,   1.0,    0] },
 ];
 

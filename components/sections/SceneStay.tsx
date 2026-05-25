@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { ACCOMMODATIONS } from '@/content/accommodations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { ImageCarousel } from '@/components/ui/ImageCarousel';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 import { cn } from '@/lib/utils';
 
 /**
@@ -77,7 +77,6 @@ export function SceneStay() {
         </p>
 
         {ACCOMMODATIONS.map((a, i) => {
-          const hasImages = a.images && a.images.length > 0;
           const isRightAlign = i % 2 !== 0;
           return (
             <article
@@ -90,70 +89,27 @@ export function SceneStay() {
               "
               style={{ top: 0 }}
             >
-              {hasImages ? (
-                /* Two-column layout: card + carousel. Same row height by
-                   stretching both children with h-full inside an items-stretch grid. */
+              <div
+                className={cn(
+                  'w-full max-w-[88rem] mx-auto',
+                  'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch',
+                )}
+              >
+                {/* Text card — semi-translucent so the 3D world reads
+                    behind it. The SceneBook cards at the end are the
+                    only solid-white cards on the site. */}
                 <div
                   className={cn(
-                    'w-full max-w-[88rem] mx-auto',
-                    'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch',
+                    'home-card lg:col-span-6 h-full',
+                    'flex flex-col justify-center',
+                    isRightAlign ? 'lg:col-start-7 lg:text-right' : '',
                   )}
                 >
-                  {/* Text card — paper-cream tinted, matches the rest
-                      of the scroll-world. The SceneBook cards at the
-                      end are the only solid-white cards on the site. */}
-                  <div
-                    className={cn(
-                      'lg:col-span-6 h-full',
-                      'bg-night/92 border border-cream/25 rounded-xl p-8 md:p-10',
-                      'flex flex-col justify-center',
-                      isRightAlign ? 'lg:col-start-7 lg:text-right' : '',
-                    )}
-                  >
-                    <p className={cn('eyebrow text-amber mb-3', isRightAlign && 'lg:text-right')}>{a.kind}</p>
-                    <h3 className="font-display text-display text-cream leading-[0.95]">
-                      {a.name}
-                    </h3>
-                    <p className={cn('editorial mt-6 text-cream', isRightAlign && 'lg:ml-auto')}>{a.hook}</p>
-                    <p className="mt-3 font-sans text-caption text-cream/70">
-                      {a.capacity}
-                    </p>
-                    <a
-                      href={a.bookingUrl ?? process.env.NEXT_PUBLIC_FAREHARBOR_URL ?? '#book'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cta-primary mt-8"
-                    >
-                      {a.ctaLabel}
-                    </a>
-                  </div>
-
-                  {/* Carousel — h-full + min-h removed via inline so it matches the card */}
-                  <div className={cn(
-                    'lg:col-span-5 h-full',
-                    isRightAlign ? 'lg:col-start-1 lg:row-start-1' : 'lg:col-start-8',
-                  )}>
-                    <ImageCarousel
-                      images={a.images!}
-                      altBase={`${a.name} — ${a.kind}`}
-                      className="h-full min-h-0"
-                    />
-                  </div>
-                </div>
-              ) : (
-                /* Single-column text-only layout for accommodations without photos */
-                <div
-                  className={
-                    !isRightAlign
-                      ? 'max-w-[40rem] ml-0 bg-night/92 border border-cream/25 rounded-xl p-8 md:p-10'
-                      : 'max-w-[40rem] ml-auto text-right bg-night/92 border border-cream/25 rounded-xl p-8 md:p-10'
-                  }
-                >
-                  <p className="eyebrow text-amber mb-3">{a.kind}</p>
+                  <p className={cn('eyebrow text-amber mb-3', isRightAlign && 'lg:text-right')}>{a.kind}</p>
                   <h3 className="font-display text-display text-cream leading-[0.95]">
                     {a.name}
                   </h3>
-                  <p className="editorial mt-6 text-cream">{a.hook}</p>
+                  <p className={cn('editorial mt-6 text-cream', isRightAlign && 'lg:ml-auto')}>{a.hook}</p>
                   <p className="mt-3 font-sans text-caption text-cream/70">
                     {a.capacity}
                   </p>
@@ -161,12 +117,37 @@ export function SceneStay() {
                     href={a.bookingUrl ?? process.env.NEXT_PUBLIC_FAREHARBOR_URL ?? '#book'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="cta-primary mt-8"
+                    className={cn('cta-primary mt-8 w-fit', isRightAlign && 'lg:ml-auto')}
                   >
                     {a.ctaLabel}
                   </a>
                 </div>
-              )}
+
+                {/* Looping muted video walkthrough — see content/accommodations.ts */}
+                <div className={cn(
+                  'lg:col-span-5 h-full',
+                  isRightAlign ? 'lg:col-start-1 lg:row-start-1' : 'lg:col-start-8',
+                )}>
+                  {a.video ? (
+                    <LoopingVideo
+                      src={a.video}
+                      poster={a.images?.[0] ?? a.heroImage}
+                      alt={`${a.name} — ${a.kind} walkthrough`}
+                      aspect="aspect-[4/5]"
+                      className="h-full"
+                    />
+                  ) : (
+                    <div className="relative w-full h-full aspect-[4/5] rounded-xl overflow-hidden bg-cream/15">
+                      <img
+                        src={a.images?.[0] ?? a.heroImage}
+                        alt={`${a.name} — ${a.kind}`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
             </article>
           );
         })}

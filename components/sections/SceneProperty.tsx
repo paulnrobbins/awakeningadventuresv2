@@ -47,7 +47,7 @@ export function SceneProperty() {
       className="scene flex items-center"
       data-scene="sanctuary"
     >
-      <div className="relative z-[var(--z-content)] ml-auto max-w-[44rem] text-right">
+      <div className="home-card relative z-[var(--z-content)] ml-auto max-w-[44rem] text-right">
         <p data-prop-anim className="eyebrow text-cream/75 mb-4">The property</p>
         <p data-prop-anim className="font-display text-display text-cream leading-[0.95]">
           Forty-two acres of<br />God&rsquo;s Creation.

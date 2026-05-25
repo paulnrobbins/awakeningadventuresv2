@@ -65,7 +65,7 @@ export function SceneTrails() {
       className="scene flex items-center"
       data-scene="trails"
     >
-      <div className="relative z-[var(--z-content)] mx-auto max-w-[64rem] text-center">
+      <div className="home-card relative z-[var(--z-content)] mx-auto max-w-[64rem] text-center">
         <p data-trail-anim className="eyebrow text-cream/75 mb-6">Walk the trails</p>
         <p data-trail-anim className="font-display text-display text-cream leading-[1.0]">
           Three miles of trail. One rock bridge.<br />

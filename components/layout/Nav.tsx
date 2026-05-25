@@ -19,7 +19,7 @@ const NAV_LINKS = [
   { href: '/lodging', label: 'Lodging' },
   { href: '/adventures', label: 'Adventures' },
   { href: '/groups', label: 'Groups' },
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -47,10 +47,10 @@ export function Nav({ className }: { className?: string }) {
         boxShadow: '0 1px 0 rgba(255,255,255,0.45) inset, 0 6px 20px -12px rgba(31,46,31,0.30)',
       }}
     >
-      <div className="flex items-center justify-between px-6 py-4 md:px-10 md:py-5">
+      <div className="flex items-center justify-between gap-10 px-6 py-4 md:px-10 md:py-5">
         <Link
           href="/"
-          className="font-display text-lg tracking-tight leading-none text-cream hover:text-amber transition-colors"
+          className="font-display text-lg tracking-tight leading-none text-cream hover:text-amber transition-colors mr-6 md:mr-10"
         >
           Awakening Adventures
         </Link>
@@ -143,7 +143,7 @@ export function Nav({ className }: { className?: string }) {
                 onClick={() => setOpen(false)}
                 className="text-cream hover:text-amber transition-colors"
               >
-                Need a Tree Platform built? Hire us.
+                Need a Tree Platform Built? Hire Us.
               </Link>
             </li>
             <li className="pt-3 flex flex-wrap gap-3">

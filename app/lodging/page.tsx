@@ -27,7 +27,7 @@ export default function LodgingPage() {
         <header className="max-w-[60rem] mb-20">
           <p className="eyebrow text-cream/75 mb-4">Lodging</p>
           <h1 className="font-display text-display text-cream leading-[0.95]">
-            Four places to wake up.
+            Five places to wake up.
           </h1>
           <p className="editorial mt-8 text-cream">
             Pick a single stay, or reserve the entire 42 acres for your
@@ -47,13 +47,24 @@ export default function LodgingPage() {
                 <div
                   className={`lg:col-span-7 h-full ${isReverse ? 'lg:order-2 lg:col-start-6' : ''}`}
                 >
-                  <LoopingVideo
-                    src={a.video ?? ''}
-                    poster={a.images?.[0] ?? a.heroImage}
-                    alt={`${a.name} — ${a.kind} walkthrough`}
-                    aspect="aspect-[16/10]"
-                    className="h-full"
-                  />
+                  {a.video ? (
+                    <LoopingVideo
+                      src={a.video}
+                      poster={a.images?.[0] ?? a.heroImage}
+                      alt={`${a.name} — ${a.kind} walkthrough`}
+                      aspect="aspect-[16/10]"
+                      className="h-full"
+                    />
+                  ) : (
+                    <div className="relative w-full h-full aspect-[16/10] rounded-xl overflow-hidden bg-cream/15">
+                      <img
+                        src={a.images?.[0] ?? a.heroImage}
+                        alt={`${a.name} — ${a.kind}`}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
                 </div>
                 <div
                   className={`lg:col-span-5 h-full ${isReverse ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-8'}`}

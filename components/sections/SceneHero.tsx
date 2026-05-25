@@ -54,7 +54,7 @@ export function SceneHero() {
       )}
       data-scene="arrival"
     >
-      <div className="relative z-[var(--z-content)] max-w-[68rem]">
+      <div className="home-card relative z-[var(--z-content)] max-w-[68rem]">
         <p data-hero-anim="eyebrow" className="eyebrow text-cream/80 mb-4">
           Grandview, Tennessee
         </p>

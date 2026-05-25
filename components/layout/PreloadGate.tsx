@@ -66,15 +66,23 @@ export function PreloadGate() {
         </div>
       </div>
 
-      <p
+      <div
         className={cn(
-          'font-display text-display text-amber max-w-[20ch] text-center px-6',
+          'max-w-[44ch] text-center px-6',
           'transition-opacity duration-1000 ease-cinematic',
           showHeadline ? 'opacity-100' : 'opacity-0',
         )}
       >
-        Loading God&rsquo;s Creation
-      </p>
+        <p className="font-display text-lede text-amber leading-[1.45] italic">
+          &ldquo;For by him all things were created, in heaven and on earth,
+          visible and invisible, whether thrones or dominions or rulers or
+          authorities&mdash;all things were created through him and for
+          him.&rdquo;
+        </p>
+        <p className="font-sans text-caption text-amber/80 mt-4 tracking-[0.18em] uppercase">
+          Colossians 1:16
+        </p>
+      </div>
 
       <span className="sr-only">Loading</span>
     </div>

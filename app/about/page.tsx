@@ -3,7 +3,7 @@ import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
 
 export const metadata = {
-  title: 'About us',
+  title: 'About Us',
   description:
     'Awakening Adventures is a 42-acre forest sanctuary in Grandview, TN, hosted by Anthony and Barb. Built as a place to come away with God — listening prayer, treehouses, trails, and the mountain prayer shelter.',
 };
@@ -27,7 +27,7 @@ export default function AboutPage() {
       <Nav />
       <main className="scene">
         <header className="max-w-[68rem]">
-          <p className="eyebrow text-cream/55 mb-4">About us</p>
+          <p className="eyebrow text-cream/55 mb-4">About Us</p>
           <h1 className="font-display text-display text-cream leading-[0.95]">
             We built a forest sanctuary<br />so guests could come away with God.
           </h1>

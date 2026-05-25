@@ -76,7 +76,7 @@ export function SceneWelcome() {
       className="scene flex items-center"
       data-scene="welcome"
     >
-      <div className="relative z-[var(--z-content)] grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-[82rem] mx-auto">
+      <div className="home-card relative z-[var(--z-content)] grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-[82rem] mx-auto">
         <div data-welcome-anim className="md:col-span-7">
           <p className="eyebrow text-cream/75 mb-4">Welcome</p>
           <h2 className="font-display text-display text-cream leading-[0.95]">
@@ -85,7 +85,7 @@ export function SceneWelcome() {
           <p className="editorial mt-6 text-cream">
             We&rsquo;re here to make your stay memorable, comfortable, and as
             great as can be. Feel free to reach out to us so we can make your
-            trip perfect <span aria-label="love">❤️</span>
+            trip perfect!
           </p>
           <Link
             href="/contact"
@@ -96,10 +96,10 @@ export function SceneWelcome() {
         </div>
         <figure data-welcome-anim className="md:col-span-5">
           <blockquote className="font-display text-lede text-cream leading-snug">
-            &ldquo;{sabrinaQuote}.&rdquo;
+            &ldquo;{sabrinaQuote}&rdquo;
           </blockquote>
           <figcaption className="mt-4 eyebrow text-amber">
-            &mdash; {sabrina?.author}
+            {sabrina?.author}
           </figcaption>
         </figure>
       </div>

@@ -64,10 +64,15 @@ export function WorldScene() {
   // Forest / welcome / book still progress-driven (they're stable).
   // Lake is now DOM-driven via lakeActive (set by SceneLake's
   // ScrollTrigger), eliminating the "not in sync over the water" drift.
-  const inForest = progress > 0.46 && progress < 0.58;
+  //
+  // Forest scene gated by `!lakeActive` so its tree banks vanish the
+  // instant the lake DOM section enters — otherwise dark trunks
+  // briefly composite over the water during the trails → lake camera
+  // transition.
+  const inForest = progress > 0.44 && progress < 0.56 && !lakeActive;
   const inLakeRange = lakeActive;
-  const inWelcomeRange = progress > 0.66 && progress < 0.92 && !lakeActive;
-  const inBookRange = progress > 0.86;
+  const inWelcomeRange = progress > 0.64 && progress < 0.90 && !lakeActive;
+  const inBookRange = progress > 0.84;
 
   return (
     <>

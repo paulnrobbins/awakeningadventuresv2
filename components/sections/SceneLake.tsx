@@ -105,7 +105,7 @@ export function SceneLake() {
       className="scene flex items-end min-h-[180vh]"
       data-scene="lake"
     >
-      <div className="relative z-[var(--z-content)] max-w-[64rem] sticky bottom-[18vh]">
+      <div className="home-card relative z-[var(--z-content)] max-w-[64rem] sticky bottom-[18vh]">
         <p data-lake-anim className="eyebrow text-cream/75 mb-4">On the water</p>
         <h2 data-lake-anim className="font-display text-display text-cream leading-[0.95]">
           Watts Bar Lake.<br />Twenty minutes from the property.

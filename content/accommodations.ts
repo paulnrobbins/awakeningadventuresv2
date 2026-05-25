@@ -10,7 +10,7 @@
  */
 
 export type Accommodation = {
-  id: 'stargazer' | 'driftwood' | 'homestead' | 'serene-seven';
+  id: 'stargazer' | 'driftwood' | 'homestead' | 'serene-seven' | 'primitive-camp';
   name: string;
   kind: string;
   hook: string;
@@ -100,6 +100,21 @@ export const ACCOMMODATIONS: Accommodation[] = [
       '/images/serene-seven/6.jpg',
     ],
     bookingUrl: 'https://awakeningadventuresllc.com/serene-seven-romantic-getaway/',
+  },
+  {
+    id: 'primitive-camp',
+    name: 'Primitive Camp',
+    kind: 'Tent camping site',
+    hook: 'Sleep on the ground, fire ring at your feet. Bring your own tent and bedding.',
+    capacity: 'Sleeps up to 4',
+    heroImage: '/images/groups/primitive-camping.webp',
+    ctaLabel: 'Book the Primitive Camp',
+    images: [
+      '/images/groups/primitive-camping.webp',
+      '/images/sanctuary/rock-bridge.webp',
+    ],
+    bookingUrl:
+      'https://www.hipcamp.com/en-US/land/tennessee-awakening-adventures-9mxhzp0q/sites/603949?adults=1&children=0',
   },
 ];
 

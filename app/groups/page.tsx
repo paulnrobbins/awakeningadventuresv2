@@ -1,5 +1,6 @@
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 import { FULL_PROPERTY_BOOKING_URL } from '@/content/accommodations';
 
 export const metadata = { title: 'Group retreats' };
@@ -39,26 +40,16 @@ export default function GroupsPage() {
             you can build your own. Two-night minimum on group bookings.
           </p>
 
-          {/* Property photo strip — gives leaders a quick visual sense
-              of what they're reserving */}
-          <ul className="mt-12 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-            {[
-              '/images/grounds/1.jpg',
-              '/images/grounds/2.jpg',
-              '/images/grounds/3.jpg',
-              '/images/grounds/4.jpg',
-              '/images/perspective/1.jpg',
-            ].map((src, i) => (
-              <li key={i} className="aspect-[4/3] rounded-md overflow-hidden border border-cream/15 bg-cream/10">
-                <img
-                  src={src}
-                  alt={`The property — view ${i + 1}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </li>
-            ))}
-          </ul>
+          {/* Property loop — all 10 walkthrough videos concatenated.
+              Gives leaders a moving sense of the whole 42 acres in one
+              place. */}
+          <div className="mt-12">
+            <LoopingVideo
+              src="/videos/forty-two.mp4"
+              alt="The whole 42-acre property — cabins, trails, kitchen, lake, prayer shelter"
+              aspect="aspect-[16/9]"
+            />
+          </div>
         </header>
 
         <section className="mt-16 max-w-[68rem]">
@@ -142,9 +133,6 @@ export default function GroupsPage() {
                 room to spread out. Ideal for a youth group, a men&rsquo;s
                 retreat overflow, or anyone who&rsquo;d rather sleep on
                 the ground than under a roof.
-              </p>
-              <p className="font-sans text-caption text-cream/70 mt-3">
-                Available only with whole-property bookings.
               </p>
             </div>
           </div>

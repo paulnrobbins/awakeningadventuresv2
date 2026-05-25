@@ -1,7 +1,19 @@
 import { Nav } from '@/components/layout/Nav';
 import { Footer } from '@/components/sections/Footer';
+import { LoopingVideo } from '@/components/ui/LoopingVideo';
 
 export const metadata = { title: 'Contact' };
+
+// Random photo cluster — pulled from across the property so the
+// contact page feels like the property itself, not a sterile form.
+const PHOTO_CLUSTER = [
+  { src: '/images/stargazer/1.jpg', alt: 'Stargazer cabin at dusk' },
+  { src: '/images/driftwood/1.jpg', alt: 'Driftwood treehouse in the canopy' },
+  { src: '/images/sanctuary/prayer-shelter.webp', alt: 'Mountain prayer shelter' },
+  { src: '/images/sanctuary/rock-bridge.webp', alt: 'Rock bridge on the trail' },
+  { src: '/images/homestead/1.jpg', alt: 'Homestead glamping tent' },
+  { src: '/images/serene-seven/1.jpg', alt: 'Serene Seven tent on the prairie' },
+];
 
 export default function ContactPage() {
   return (
@@ -41,6 +53,43 @@ export default function ContactPage() {
             </dd>
           </div>
         </dl>
+
+        {/* 42-acre looping property video — soft proof of life. */}
+        <section className="mt-20 max-w-[88rem]">
+          <p className="eyebrow text-amber mb-4">A little of what you&rsquo;d see</p>
+          <LoopingVideo
+            src="/videos/forty-two.mp4"
+            alt="A walk through the 42-acre property"
+            aspect="aspect-[16/9]"
+          />
+        </section>
+
+        {/* Photo cluster — visual letterhead, not a gallery */}
+        <section className="mt-20 max-w-[88rem]">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+            {PHOTO_CLUSTER.map((p, i) => (
+              <li
+                key={i}
+                className="aspect-square overflow-hidden rounded-lg border border-cream/15 bg-cream/10"
+              >
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <p className="mt-12 max-w-[60rem] font-sans text-body text-cream/80">
+          Or come walk it with us &mdash;{' '}
+          <a href="/lodging" className="underline underline-offset-4 hover:text-amber">
+            see all five places to stay
+          </a>
+          .
+        </p>
       </main>
       <Footer />
     </>
