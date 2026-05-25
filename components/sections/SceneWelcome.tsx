@@ -48,6 +48,10 @@ export function SceneWelcome() {
           sound.fade('ambient-lake', 0.2, 0.04, 1600);
           sound.fade('water-lap', 0.18, 0, 1600);
           sound.fade('fire-crackle', 0, 0.28, 2000);
+          // Single owl hoot 4 seconds after the fire comes up — a
+          // grace note that says "dusk on the property" without
+          // looping or competing with the fire crackle bed.
+          setTimeout(() => sound.play('owl-hoot'), 4000);
           fired.current = true;
         }
       },

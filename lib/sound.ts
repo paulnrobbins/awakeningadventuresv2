@@ -17,7 +17,11 @@ export type SceneSoundKey =
   | 'pontoon-distant'
   | 'bird-call'
   | 'wind-trees'
-  | 'ui-whoosh';
+  | 'ui-whoosh'
+  | 'rain'
+  | 'owl-hoot'
+  | 'footsteps-leaves'
+  | 'whippoorwill';
 
 interface CueConfig {
   src: string[];
@@ -37,6 +41,12 @@ const CUE_REGISTRY: Record<SceneSoundKey, CueConfig> = {
   'bird-call':        { src: ['/sound/bird-call.mp3'],        loop: false, volume: 0.20 },
   'wind-trees':       { src: ['/sound/wind-trees.mp3'],       loop: true, volume: 0.10, html5: true },
   'ui-whoosh':        { src: ['/sound/ui-whoosh.mp3'],        loop: false, volume: 0.35 },
+
+  // Six guest-uploaded sounds — all CC0 from Freesound.org
+  'rain':             { src: ['/sound/rain.mp3'],             loop: true,  volume: 0.14, html5: true },
+  'owl-hoot':         { src: ['/sound/owl-hoot.mp3'],         loop: false, volume: 0.25 },
+  'footsteps-leaves': { src: ['/sound/footsteps-leaves.mp3'], loop: true,  volume: 0.12 },
+  'whippoorwill':     { src: ['/sound/whippoorwill.mp3'],     loop: true,  volume: 0.10, html5: true },
 };
 
 let HowlerLib: typeof import('howler') | null = null;

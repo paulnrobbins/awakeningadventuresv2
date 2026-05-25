@@ -42,11 +42,17 @@ export function SceneGroups() {
         if (!fired.current) {
           sound.fade('fire-crackle', 0.28, 0.08, 1600);
           sound.fade('crickets', 0.12, 0.28, 2200);
+          // Whippoorwill at very low volume — the signature
+          // Tennessee-dusk sound. Real bird on the property per
+          // the sanctuary page WILDLIFE list. Plays in as the
+          // groups pull-back reaches "full property at dusk".
+          sound.fade('whippoorwill', 0, 0.10, 3000);
           fired.current = true;
         }
       },
       onLeaveBack: () => {
         gsap.to(items, { opacity: 0, y: 32, duration: 0.6, ease: 'power2.in' });
+        sound.fade('whippoorwill', 0.10, 0, 1400);
         fired.current = false;
       },
     });

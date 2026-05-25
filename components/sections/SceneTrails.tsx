@@ -44,13 +44,16 @@ export function SceneTrails() {
         });
         if (!fired.current) {
           sound.play('bird-call');
-          // crossfade ambient: forest deepens here
+          // crossfade ambient: forest deepens here, gentle footsteps
+          // underneath sell the "walking the trail" feeling
           sound.fade('ambient-forest', 0.18, 0.32, 1800);
+          sound.fade('footsteps-leaves', 0, 0.12, 2000);
           fired.current = true;
         }
       },
       onLeaveBack: () => {
         gsap.to(items, { opacity: 0, y: 32, duration: 0.6, ease: 'power2.in' });
+        sound.fade('footsteps-leaves', 0.12, 0, 1200);
       },
     });
 
