@@ -70,17 +70,40 @@ export function SceneTrails() {
       data-scene="trails"
     >
       <div className="relative z-[var(--z-content)] w-full max-w-[88rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <div data-trail-anim className="lg:col-span-6 grid grid-cols-2 gap-4">
-          <LoopingVideo
-            src="/videos/trails.mp4"
-            alt="Walking the trail through the sanctuary forest"
-            aspect="aspect-[9/16]"
-          />
-          <LoopingVideo
-            src="/videos/perspective-platform.mp4"
-            alt="The perspective tree platform — twenty-two feet up in two red oaks"
-            aspect="aspect-[9/16]"
-          />
+        <div data-trail-anim className="lg:col-span-6 space-y-4">
+          {/* Two looping muted videos — trail + perspective platform */}
+          <div className="grid grid-cols-2 gap-4">
+            <LoopingVideo
+              src="/videos/trails.mp4"
+              alt="Walking the trail through the sanctuary forest"
+              aspect="aspect-[9/16]"
+            />
+            <LoopingVideo
+              src="/videos/perspective-platform.mp4"
+              alt="The perspective tree platform — twenty-two feet up in two red oaks"
+              aspect="aspect-[9/16]"
+            />
+          </div>
+          {/* Two photos beneath — rock bridge + prayer shelter,
+              matching the videos' two-column grid */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/sanctuary/rock-bridge.webp"
+                alt="The rock bridge across the wet-weather creek"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="aspect-[4/3] rounded-xl overflow-hidden border border-cream/15 bg-cream/10">
+              <img
+                src="/images/sanctuary/prayer-shelter.webp"
+                alt="The mountain prayer shelter — open-sided pavilion with natural-stone altar"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="home-card lg:col-span-6 text-center lg:text-left">

@@ -74,9 +74,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://www.hipcamp.com/en-US/land/tennessee-awakening-adventures-9mxhzp0q" target="_blank" rel="noopener noreferrer" className="hover:text-amber transition-colors">
-                  Highly Rated on Hipcamp
-                </a>
+                <Link href="/reviews" className="hover:text-amber transition-colors">
+                  Reviews
+                </Link>
               </li>
             </ul>
             <div className="mt-8 flex flex-col items-start gap-5">

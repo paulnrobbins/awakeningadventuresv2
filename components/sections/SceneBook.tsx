@@ -97,13 +97,11 @@ export function SceneBook() {
                   aria-label={a.ctaLabel}
                   className="
                     flex flex-col h-full rounded-xl overflow-hidden
-                    bg-white border border-[rgba(31,46,31,0.18)]
+                    bg-white
                     shadow-[0_10px_30px_-12px_rgba(31,46,31,0.35)]
                     transition-all duration-500 ease-cinematic
                     hover:-translate-y-1
                     hover:shadow-[0_20px_60px_-20px_rgba(199,122,58,0.55)]
-                    hover:border-amber
-                    focus-visible:border-amber
                   "
                   style={{ backgroundColor: '#ffffff' }}
                 >
@@ -180,10 +178,10 @@ export function SceneBook() {
           aria-label="Reserve the whole 42 acres for your group"
           className="
             group block mt-10 rounded-xl overflow-hidden
-            bg-white border-2 border-amber/70
+            bg-white
             shadow-[0_14px_40px_-16px_rgba(199,122,58,0.45)]
             transition-all duration-500 ease-cinematic
-            hover:-translate-y-1 hover:border-amber
+            hover:-translate-y-1
             hover:shadow-[0_24px_70px_-20px_rgba(199,122,58,0.65)]
             text-left
           "

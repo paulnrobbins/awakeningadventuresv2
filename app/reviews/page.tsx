@@ -39,7 +39,7 @@ export default function ReviewsPage() {
             {REVIEWS.map((r, i) => (
               <li
                 key={i}
-                className="border border-cream/15 rounded-xl p-8 bg-night/40"
+                className="rounded-xl p-8 bg-night/40"
               >
                 <p
                   className="font-display text-amber"
@@ -69,7 +69,7 @@ export default function ReviewsPage() {
           <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <li>
               <a
-                href="https://www.hipcamp.com/en-US/land/tennessee-awakening-adventures-9mxhzp0q"
+                href="https://www.hipcamp.com/en-US/land/tennessee-awakening-adventures-9mxhzp0q/reviews?adults=1&children=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-primary w-full justify-center inline-flex"

@@ -20,7 +20,7 @@
 :root {
   /* Color tokens — rgb triples for Tailwind alpha syntax */
   --aa-night: 245 239 226;     /* paper / morning haze — DAYTIME DOMINANT BG */
-  --aa-cream: 255 255 255;     /* WHITE — primary text. Gets a black text-shadow outline in globals.css so it reads on every background. */
+  --aa-cream: 15 15 15;        /* NEAR-BLACK by default — readable on every sub-page. The home page overrides to white inside .home-text via globals.css so the dark 3D world shows through with a black text-shadow outline. */
   --aa-amber: 199 122 58;      /* warm fire-amber — accent (unchanged) */
   --aa-forest: 75 110 79;      /* mid forest foliage — secondary detail */
 

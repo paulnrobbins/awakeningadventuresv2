@@ -5,53 +5,33 @@
 @tailwind utilities;
 
 /* -------------------------------------------------------------------
-   Scoped text-outline pass
+   Font color logic
    -------------------------------------------------------------------
-   Black outline applies to:
-     • Every text-cream / text-amber / .eyebrow inside .home-text
-       (the home page <main>). Other pages render flat color.
-     • Every .cta-primary site-wide (so CTA buttons read on any bg).
-   Excluded by design: Nav, Footer, PreloadGate (loading screen), and
-   the inner pages — those use flat color since their backgrounds are
-   controlled.
+   Default --aa-cream = near-black, so EVERY text-cream renders dark.
+   That's what every sub-page (lodging, sanctuary, reviews, FAQ, etc.)
+   plus Nav and Footer needs — dark text on paper-cream backgrounds.
 
-   Outline weight is tied to text size:
-     • Headlines (display/hero/title): 1px four-corner outline
-     • Small text (eyebrow/caption/body/CTA): 0.5px four-corner outline
-       (subpixel weight reads softer on small glyphs).
+   The HOME PAGE is the exception: the 3D world sits behind translucent
+   cards, so dark text doesn't read. Inside .home-text we re-override
+   text-cream + .eyebrow to white, and the large headlines get a 1px
+   black outline so they pop against the 25%-white cards.
+
+   PreloadGate (loading screen) renders its own inline colors and is
+   unaffected by this rule.
 */
-
-/* Homepage headlines — full 1px outline */
 .home-text [class*="text-cream"],
-.home-text [class*="text-amber"] {
+.home-text .eyebrow {
+  color: #FFFFFF;
+}
+
+.home-text [class*="text-hero"],
+.home-text [class*="text-display"],
+.home-text [class*="text-title"] {
   text-shadow:
     -1px -1px 0 #000,
      1px -1px 0 #000,
     -1px  1px 0 #000,
      1px  1px 0 #000;
-}
-
-/* Homepage SMALL text — thinner outline (eyebrow, body, caption).
-   Listed AFTER the rule above so it overrides for these specific
-   selectors. */
-.home-text .eyebrow,
-.home-text [class*="text-body"],
-.home-text [class*="text-caption"],
-.home-text [class*="text-lede"] {
-  text-shadow:
-    -0.5px -0.5px 0 #000,
-     0.5px -0.5px 0 #000,
-    -0.5px  0.5px 0 #000,
-     0.5px  0.5px 0 #000;
-}
-
-/* CTA buttons — thinner outline everywhere they appear */
-.cta-primary {
-  text-shadow:
-    -0.5px -0.5px 0 #000,
-     0.5px -0.5px 0 #000,
-    -0.5px  0.5px 0 #000,
-     0.5px  0.5px 0 #000;
 }
 
 /* Component-layer rules. Kept thin — Tailwind utilities do most of the work,
@@ -103,29 +83,31 @@
      needed again it should be added back here and applied to specific
      scenes rather than globally. */
 
-  /* Primary CTA — pill-style button with transparent background and
-     amber border. Reads as a real button (not floating text) over any
-     background, including the 3D world. Hover swaps to filled amber.
-     Padding tuned so the button height stays comfortable next to body
-     copy and so the lede text scale doesn't blow the row out.
+  /* Primary CTA — solid amber pill by default so the button POPS on
+     every background (the 25% white home cards, the 3D world, the
+     paper-cream pages). Dark forest-ink text on amber for max
+     contrast. A subtle drop shadow lifts it off the card surface.
+     Hover inverts to outlined transparent for the interaction signal.
   */
   .cta-primary {
-    @apply font-display text-lede text-cream;
+    @apply font-display text-lede;
     @apply inline-flex items-center gap-3;
     @apply transition-all duration-500 ease-cinematic;
-    padding: 0.65rem 1.4rem;
-    border: 1.5px solid rgb(var(--aa-amber) / 0.85);
+    padding: 0.7rem 1.5rem;
+    border: 1.5px solid rgb(var(--aa-amber));
     border-radius: 9999px;
-    background: rgb(var(--aa-amber) / 0);
+    background: rgb(var(--aa-amber));
+    color: #1F2E1F;                       /* forest ink on amber */
     text-decoration: none;
     cursor: pointer;
     line-height: 1.1;
+    box-shadow: 0 6px 18px -8px rgba(199, 122, 58, 0.55);
   }
   .cta-primary:hover,
   .cta-primary:focus-visible {
-    background: rgb(var(--aa-amber));
-    color: rgb(var(--aa-night));
-    border-color: rgb(var(--aa-amber));
+    background: rgb(var(--aa-amber) / 0);
+    color: rgb(var(--aa-amber));
+    box-shadow: 0 10px 24px -10px rgba(199, 122, 58, 0.65);
   }
   .cta-primary::after {
     content: '→';

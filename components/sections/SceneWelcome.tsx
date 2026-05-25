@@ -80,8 +80,8 @@ export function SceneWelcome() {
       className="scene flex items-center"
       data-scene="welcome"
     >
-      <div className="home-card relative z-[var(--z-content)] grid grid-cols-1 md:grid-cols-12 gap-12 items-center max-w-[82rem] mx-auto">
-        <div data-welcome-anim className="md:col-span-7">
+      <div className="home-card relative z-[var(--z-content)] max-w-[68rem] mx-auto">
+        <div data-welcome-anim>
           <p className="eyebrow text-cream/75 mb-4">Welcome</p>
           <h2 className="font-display text-display text-cream leading-[0.95]">
             Hosted by us,<br />Anthony and Barb.
@@ -98,14 +98,6 @@ export function SceneWelcome() {
             Reach out
           </Link>
         </div>
-        <figure data-welcome-anim className="md:col-span-5">
-          <blockquote className="font-display text-lede text-cream leading-snug">
-            &ldquo;{sabrinaQuote}&rdquo;
-          </blockquote>
-          <figcaption className="mt-4 eyebrow text-amber">
-            {sabrina?.author}
-          </figcaption>
-        </figure>
       </div>
     </section>
   );

@@ -67,12 +67,7 @@ export function SceneShower() {
           </h3>
           <p className="editorial mt-6 text-cream">
             Ten feet off the ground, standing next to a live tree, with the
-            canopy overhead. All-natural toiletries are provided. The hot
-            water is endless and on demand.
-          </p>
-          <p className="font-sans text-caption text-cream/70 mt-3">
-            Anthony calls it the best treehouse shower in Tennessee. Reviews
-            on Hipcamp tend to agree.
+            canopy overhead. Best treehouse shower in Tennessee.
           </p>
         </div>
 
