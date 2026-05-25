@@ -35,7 +35,7 @@ export function Footer() {
               <li><Link href="/sanctuary" className="hover:text-amber transition-colors">Sanctuary</Link></li>
               <li><Link href="/lodging" className="hover:text-amber transition-colors">Lodging</Link></li>
               <li><Link href="/adventures" className="hover:text-amber transition-colors">Adventures</Link></li>
-              <li><Link href="/groups" className="hover:text-amber transition-colors">Group retreats</Link></li>
+              <li><Link href="/groups" className="hover:text-amber transition-colors">Groups</Link></li>
               <li><Link href="/about" className="hover:text-amber transition-colors">About Us</Link></li>
               <li><Link href="/devotionals" className="hover:text-amber transition-colors">Devotionals</Link></li>
               <li><Link href="/blog" className="hover:text-amber transition-colors">Blog</Link></li>

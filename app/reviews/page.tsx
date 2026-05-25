@@ -35,7 +35,6 @@ export default function ReviewsPage() {
 
         {/* Full quote list — every review in long form */}
         <section className="mt-20 max-w-[80rem]">
-          <p className="eyebrow text-amber mb-6">Every review, full text</p>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {REVIEWS.map((r, i) => (
               <li
