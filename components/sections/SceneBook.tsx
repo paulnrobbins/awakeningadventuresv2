@@ -189,24 +189,21 @@ export function SceneBook() {
           "
           style={{ backgroundColor: '#ffffff' }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 items-stretch">
-            {/* Photo half — uses the property hero (Stargazer 3/4 for now;
-                swap to a dedicated property-wide shot when one exists). */}
-            <div className="relative aspect-[5/3] md:aspect-auto md:min-h-[22rem] overflow-hidden bg-cream/20">
-              <img
-                src="/images/stargazer/1.jpg"
-                alt="The whole 42 acres — Awakening Adventures Forest Sanctuary"
-                loading="lazy"
-                className="
-                  absolute inset-0 w-full h-full object-cover
-                  transition-transform duration-700 ease-cinematic
-                  group-hover:scale-105
-                "
+          <div className="grid grid-cols-1 md:grid-cols-12 items-center">
+            {/* Video half — the looping 42-acre walkthrough (portrait,
+                matches the other accommodation cards' orientation). */}
+            <div className="md:col-span-5 p-6 md:p-10">
+              <LoopingVideo
+                src="/videos/forty-two.mp4"
+                poster="/images/stargazer/1.jpg"
+                alt="The whole 42 acres — walkthrough loop"
+                aspect="aspect-[9/16]"
+                className="max-w-[22rem] mx-auto"
               />
             </div>
 
             {/* Copy half */}
-            <div className="flex flex-col justify-center p-8 md:p-12">
+            <div className="md:col-span-7 flex flex-col justify-center p-8 md:p-12">
               <p className="eyebrow" style={{ color: '#C77A3A' }}>
                 Whole property
               </p>
@@ -222,8 +219,8 @@ export function SceneBook() {
               >
                 Reserve every cabin, tent, fire pit, and trail on the
                 property for your group. Two-night minimum on full-property
-                bookings. Sleeps up to ~30 guests across the four
-                accommodations and the primitive camp.
+                bookings. Sleeps up to ~30 guests across the five places
+                to stay.
               </p>
               <p
                 className="font-display text-lede text-amber mt-8 inline-flex items-center gap-2"

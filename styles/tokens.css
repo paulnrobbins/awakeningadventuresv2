@@ -20,7 +20,7 @@
 :root {
   /* Color tokens — rgb triples for Tailwind alpha syntax */
   --aa-night: 245 239 226;     /* paper / morning haze — DAYTIME DOMINANT BG */
-  --aa-cream: 31 77 44;        /* DEEP FOREST GREEN — primary text */
+  --aa-cream: 15 15 15;        /* NEAR-BLACK — primary text (was deep forest green) */
   --aa-amber: 199 122 58;      /* warm fire-amber — accent (unchanged) */
   --aa-forest: 75 110 79;      /* mid forest foliage — secondary detail */
 
