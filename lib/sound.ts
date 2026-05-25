@@ -49,13 +49,11 @@ const CUE_REGISTRY: Record<SceneSoundKey, CueConfig> = {
   'whippoorwill':     { src: ['/sound/whippoorwill.mp3'],     loop: true,  volume: 0.10, html5: true },
 };
 
+type HowlInstance = InstanceType<NonNullable<typeof HowlerLib>['Howl']>;
+
 let HowlerLib: typeof import('howler') | null = null;
-const cues = new Map<SceneSoundKey, unknown>();
+const cues = new Map<SceneSoundKey, HowlInstance>();
 let muted = true;
-// Activated by the first user click on the mute toggle. While
-// inactive, every sound API call is a silent no-op so missing
-// files cannot trigger Howler errors.
-let active = false;
 const subscribers = new Set<(muted: boolean) => void>();
 
 async function getHowler(): Promise<typeof import('howler') | null> {
@@ -63,6 +61,11 @@ async function getHowler(): Promise<typeof import('howler') | null> {
   if (typeof window === 'undefined') return null;
   try {
     HowlerLib = await import('howler');
+    // Browser autoplay policy: Howler's global mute defaults to false,
+    // but we start the SITE muted. Apply Howler.mute(true) once the
+    // lib loads so any cue that starts before the user unmutes plays
+    // silently. setMuted() later flips it.
+    HowlerLib.Howler.mute(true);
     return HowlerLib;
   } catch (err) {
     console.warn('[sound] howler.js failed to load:', err);
@@ -70,14 +73,9 @@ async function getHowler(): Promise<typeof import('howler') | null> {
   }
 }
 
-async function ensureCue(key: SceneSoundKey) {
-  // Hard gate: never instantiate Howl objects until the user has
-  // opted in. This is the single most important defensive line —
-  // it prevents missing-file fetches from cascading into a crash.
-  if (!active) return null;
-
+async function ensureCue(key: SceneSoundKey): Promise<HowlInstance | null> {
   const existing = cues.get(key);
-  if (existing) return existing as InstanceType<NonNullable<typeof HowlerLib>['Howl']>;
+  if (existing) return existing;
   const lib = await getHowler();
   if (!lib) return null;
   const cfg = CUE_REGISTRY[key];
@@ -90,7 +88,7 @@ async function ensureCue(key: SceneSoundKey) {
       html5: cfg.html5 ?? false,
       preload: true,
       onloaderror: () => { /* silent — file missing is expected */ },
-      onplayerror: () => { /* silent */ },
+      onplayerror: () => { /* silent — autoplay gesture not yet given */ },
     });
     cues.set(key, howl);
     return howl;
@@ -101,36 +99,48 @@ async function ensureCue(key: SceneSoundKey) {
 }
 
 export const sound = {
+  /**
+   * One-shot play. Always loads + plays the cue; Howler's global mute
+   * controls whether you hear it. After the user unmutes, future
+   * play() calls are audible immediately.
+   */
   play(key: SceneSoundKey): void {
-    if (muted || !active) return;
-    ensureCue(key).then((howl) => { try { howl?.play(); } catch { /* ignore */ } });
+    ensureCue(key).then((howl) => {
+      if (!howl) return;
+      try { howl.play(); } catch { /* ignore */ }
+    });
   },
 
   stop(key: SceneSoundKey) {
-    const c = cues.get(key) as { stop?: () => void } | undefined;
-    try { c?.stop?.(); } catch { /* ignore */ }
+    const c = cues.get(key);
+    try { c?.stop(); } catch { /* ignore */ }
   },
 
+  /**
+   * Fade a cue from one volume to another. Cue is loaded + started
+   * regardless of mute state — Howler's global mute handles output.
+   * When the user unmutes mid-scene, any cue that was already faded
+   * up becomes audible at its current volume instantly.
+   */
   fade(key: SceneSoundKey, from: number, to: number, durationMs = 1200) {
-    if (!active) return;
     ensureCue(key).then((howl) => {
       if (!howl) return;
       try {
-        if (muted) { howl.volume(0); return; }
         if (!howl.playing()) howl.play();
         howl.fade(from, to, durationMs);
       } catch { /* ignore */ }
     });
   },
 
-  preload(_keys: SceneSoundKey[]) {
-    /* deliberately a no-op — sound is fully opt-in via setMuted(false) */
+  preload(keys: SceneSoundKey[]) {
+    keys.forEach((k) => { ensureCue(k); });
   },
 
   setMuted(next: boolean) {
     muted = next;
-    if (!next) active = true; // first unmute activates the system
-    getHowler().then((lib) => { try { lib?.Howler.mute(next); } catch { /* ignore */ } });
+    getHowler().then((lib) => {
+      try { lib?.Howler.mute(next); } catch { /* ignore */ }
+    });
     subscribers.forEach((cb) => cb(next));
   },
 

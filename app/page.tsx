@@ -35,7 +35,7 @@ export default function HomePage() {
       <PreloadGate />
       {mounted && <WorldCanvasClient />}
       <Nav />
-      <main className="relative z-[var(--z-content)]">
+      <main className="home-text relative z-[var(--z-content)]">
         <SceneHero />
         <SceneProperty />
         <SceneStay />

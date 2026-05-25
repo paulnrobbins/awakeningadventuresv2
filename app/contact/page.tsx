@@ -57,11 +57,13 @@ export default function ContactPage() {
         {/* 42-acre looping property video — soft proof of life. */}
         <section className="mt-20 max-w-[88rem]">
           <p className="eyebrow text-amber mb-4">A little of what you&rsquo;d see</p>
-          <LoopingVideo
-            src="/videos/forty-two.mp4"
-            alt="A walk through the 42-acre property"
-            aspect="aspect-[16/9]"
-          />
+          <div className="max-w-[26rem] mx-auto">
+            <LoopingVideo
+              src="/videos/forty-two.mp4"
+              alt="A walk through the 42-acre property"
+              aspect="aspect-[9/16]"
+            />
+          </div>
         </section>
 
         {/* Photo cluster — visual letterhead, not a gallery */}

@@ -160,7 +160,7 @@ export function SceneBook() {
               </ul>
               {bottom.length > 0 && (
                 <ul
-                  className="mt-6 md:mt-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-7 max-w-[60%] mx-auto"
+                  className="mt-6 md:mt-7 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-7 mx-auto w-full lg:max-w-[66%]"
                   aria-label="Accommodations (bottom row)"
                 >
                   {bottom.map(renderCard)}
