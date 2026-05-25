@@ -107,23 +107,9 @@ export function SceneLake() {
       data-scene="lake"
     >
       <div className="relative z-[var(--z-content)] w-full max-w-[88rem] mx-auto sticky bottom-[12vh] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Two portrait videos stacked side-by-side: boat tour + island
-            camping — both autoplay/loop/muted so the lake range carries
-            real footage even before the visitor opens /adventures. */}
-        <div data-lake-anim className="lg:col-span-6 grid grid-cols-2 gap-4">
-          <LoopingVideo
-            src="/videos/boat-tours.mp4"
-            alt="Sunset pontoon tour on Watts Bar Lake"
-            aspect="aspect-[9/16]"
-          />
-          <LoopingVideo
-            src="/videos/island-camping.mp4"
-            alt="Island camping on Watts Bar Lake"
-            aspect="aspect-[9/16]"
-          />
-        </div>
-
-        <div className="home-card lg:col-span-6">
+        {/* TEXT first in DOM so mobile shows it before the videos. On
+            desktop, lg:order-2 pushes it to the right column. */}
+        <div className="home-card lg:col-span-6 lg:order-2">
           <p data-lake-anim className="eyebrow text-cream/75 mb-4">On the water</p>
           <h2 data-lake-anim className="font-display text-display text-cream leading-[0.95]">
             Watts Bar Lake.<br />Twenty minutes from the property.
@@ -151,6 +137,21 @@ export function SceneLake() {
               {EXCURSION_CTAS.islandCamping.label}
             </a>
           </div>
+        </div>
+
+        {/* MEDIA second in DOM (stacks BELOW text on mobile), with
+            lg:order-1 to push it back to the left column on desktop. */}
+        <div data-lake-anim className="lg:col-span-6 lg:order-1 grid grid-cols-2 gap-4">
+          <LoopingVideo
+            src="/videos/boat-tours.mp4"
+            alt="Sunset pontoon tour on Watts Bar Lake"
+            aspect="aspect-[9/16]"
+          />
+          <LoopingVideo
+            src="/videos/island-camping.mp4"
+            alt="Island camping on Watts Bar Lake"
+            aspect="aspect-[9/16]"
+          />
         </div>
       </div>
     </section>

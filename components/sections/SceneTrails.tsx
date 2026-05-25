@@ -70,7 +70,35 @@ export function SceneTrails() {
       data-scene="trails"
     >
       <div className="relative z-[var(--z-content)] w-full max-w-[88rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <div data-trail-anim className="lg:col-span-6 space-y-4">
+        {/* TEXT first in DOM so mobile shows it before the media. On
+            desktop, lg:order-2 pushes it back to the right column,
+            preserving the existing media-left / text-right layout. */}
+        <div className="home-card lg:col-span-6 lg:order-2 text-center lg:text-left">
+          <p data-trail-anim className="eyebrow text-cream/75 mb-6">Walk the trails</p>
+          <p data-trail-anim className="font-display text-display text-cream leading-[1.0]">
+            Three miles of trail, a perspective platform, prayer
+            shelter, and rock bridge. The perfect place to reflect and
+            seek God and His presence.
+          </p>
+          <p data-trail-anim className="editorial mt-8 text-cream lg:mx-0 mx-auto">
+            Reconnect with your Creator through prayer trails led by host
+            Anthony. View God&rsquo;s creation from the perspective
+            platform, walk the rock bridge, and feel God&rsquo;s presence
+            in the prayer shelter.
+          </p>
+          <Link
+            data-trail-anim
+            href="/sanctuary"
+            className="cta-primary mt-10 inline-flex"
+          >
+            Learn more
+          </Link>
+        </div>
+
+        {/* MEDIA second in DOM (so it stacks BELOW the text on mobile),
+            with lg:order-1 to push it back to the left column on
+            desktop. */}
+        <div data-trail-anim className="lg:col-span-6 lg:order-1 space-y-4">
           {/* Two looping muted videos — trail + perspective platform */}
           <div className="grid grid-cols-2 gap-4">
             <LoopingVideo
@@ -104,27 +132,6 @@ export function SceneTrails() {
               />
             </div>
           </div>
-        </div>
-
-        <div className="home-card lg:col-span-6 text-center lg:text-left">
-          <p data-trail-anim className="eyebrow text-cream/75 mb-6">Walk the trails</p>
-          <p data-trail-anim className="font-display text-display text-cream leading-[1.0]">
-            Three miles of trail. One rock bridge.<br />
-            Enough quiet to seek God and His presence.
-          </p>
-          <p data-trail-anim className="editorial mt-8 text-cream lg:mx-0 mx-auto">
-            Reconnect with your Creator through prayer trails led by host
-            Anthony. View God&rsquo;s creation from the perspective
-            platform, walk the rock bridge, and feel God&rsquo;s presence
-            in the prayer shelter.
-          </p>
-          <Link
-            data-trail-anim
-            href="/sanctuary"
-            className="cta-primary mt-10 inline-flex"
-          >
-            Learn more
-          </Link>
         </div>
       </div>
     </section>
