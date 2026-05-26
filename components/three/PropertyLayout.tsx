@@ -8,6 +8,7 @@ import { PerspectivePlatform } from './PerspectivePlatform';
 import { ShowerHouse } from './ShowerHouse';
 import { PhotoBillboard } from './PhotoBillboard';
 import { Firefly } from './Firefly';
+import { FirePit } from './FirePit';
 import { useDeviceTier } from '@/hooks/useDeviceTier';
 import { WorldErrorBoundary } from './WorldErrorBoundary';
 
@@ -57,6 +58,32 @@ export function PropertyLayout() {
       <PerspectivePlatform position={[30, 1.2, -38]} rotationY={Math.PI} />
 
       <ShowerHouse position={[20, 0, 8]} rotationY={-Math.PI / 4} glowIntensity={0.15} />
+
+      {/* Welcome fire pit — moved here from WelcomeStage so it's
+          ALWAYS mounted. Previously the fire mounted only when
+          SceneWelcome's ScrollTrigger fired, which meant the camera's
+          continuous lerp from Lake to Welcome had nothing to look at
+          until the very end of the transition — fire appeared
+          "out of nowhere" at scroll ~topLake+150. Now it's a
+          permanent property feature: visible as a tiny distant glow
+          during aerial scenes, growing in the frame as the camera
+          approaches Welcome. The flickering point light is small
+          (distance=9, intensity ~1.6) so it doesn't blow out other
+          scenes. PhotoBillboards stay in WelcomeStage — they're
+          texture-heavy and only relevant when camera is close. */}
+      <group position={[-2, 0, -8]}>
+        <FirePit position={[0, 0, 0]} glow={1.1} />
+        {[
+          { p: [-0.9, 0.18, 1.0] as [number, number, number], r: 0.6 },
+          { p: [0.8, 0.18, 1.0] as [number, number, number], r: -0.4 },
+          { p: [0, 0.18, -1.1] as [number, number, number], r: 0 },
+        ].map((log, i) => (
+          <mesh key={i} position={log.p} rotation={[0, log.r, Math.PI / 2]}>
+            <cylinderGeometry args={[0.12, 0.13, 1.2, 8]} />
+            <meshStandardMaterial color="#3A2818" roughness={0.92} />
+          </mesh>
+        ))}
+      </group>
 
       {/* Photo billboards — Pattern A. Each wrapped individually so one
           missing image doesn't take down the other. */}

@@ -146,6 +146,56 @@ export function ForestScene({
         <boxGeometry args={[0.4, 0.06, 0.15]} />
         <meshStandardMaterial color="#5A4126" roughness={0.85} />
       </mesh>
+
+      {/* Rock bridge — stacked boulders forming a low arch across the
+          wet-weather creek the trail crosses. Sits in the foreground
+          (relative z=+5 → world z=-11, closest to camera) so the
+          camera approaches it at the start of the trails scene and
+          tracks past it on the way to the shelter and platform. */}
+      <group position={[0.6, 0, 5]} rotation={[0, 0.18, 0]}>
+        {/* Left abutment — chunky base boulder */}
+        <mesh position={[-1.0, 0.45, 0]} rotation={[0.1, 0.4, 0.05]}>
+          <dodecahedronGeometry args={[0.55, 0]} />
+          <meshStandardMaterial color="#4F4A42" roughness={0.96} />
+        </mesh>
+        <mesh position={[-1.1, 0.85, -0.05]} rotation={[0, 0.9, -0.1]}>
+          <dodecahedronGeometry args={[0.32, 0]} />
+          <meshStandardMaterial color="#3F3A32" roughness={0.95} />
+        </mesh>
+
+        {/* Right abutment */}
+        <mesh position={[1.0, 0.45, 0]} rotation={[-0.1, 0.7, -0.05]}>
+          <dodecahedronGeometry args={[0.55, 0]} />
+          <meshStandardMaterial color="#4F4A42" roughness={0.96} />
+        </mesh>
+        <mesh position={[1.1, 0.85, -0.05]} rotation={[0, -0.5, 0.08]}>
+          <dodecahedronGeometry args={[0.32, 0]} />
+          <meshStandardMaterial color="#3F3A32" roughness={0.95} />
+        </mesh>
+
+        {/* Span — flat capstone bridging the abutments */}
+        <mesh position={[0, 1.05, 0]} rotation={[0, 0, 0.02]}>
+          <boxGeometry args={[2.6, 0.22, 0.7]} />
+          <meshStandardMaterial color="#5A544A" roughness={0.94} />
+        </mesh>
+
+        {/* Smaller mossy cap stones along the span for texture */}
+        <mesh position={[-0.55, 1.22, 0.05]} rotation={[0.1, 0.3, 0]}>
+          <dodecahedronGeometry args={[0.18, 0]} />
+          <meshStandardMaterial color="#3A3A30" roughness={0.96} />
+        </mesh>
+        <mesh position={[0.55, 1.22, -0.05]} rotation={[-0.1, -0.4, 0.05]}>
+          <dodecahedronGeometry args={[0.18, 0]} />
+          <meshStandardMaterial color="#3A3A30" roughness={0.96} />
+        </mesh>
+
+        {/* Implied creek bed beneath — dark thin strip so the bridge
+            reads as bridging something, not floating on dirt */}
+        <mesh position={[0, -0.14, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[3.2, 0.9]} />
+          <meshStandardMaterial color="#1A1F18" roughness={1} />
+        </mesh>
+      </group>
     </group>
   );
 }

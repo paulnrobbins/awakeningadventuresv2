@@ -6,20 +6,25 @@ import { ACCOMMODATIONS } from '@/content/accommodations';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { LoopingVideo } from '@/components/ui/LoopingVideo';
 import { cn } from '@/lib/utils';
+import { setPrimitiveCampActive } from '@/lib/cameraOverride';
 
 /**
  * Scene 3 — Stay.
  *
- * Four accommodations stack vertically. Each one is sticky-pinned to
- * the viewport and fades in as the visitor scrolls. When an
- * accommodation has photos (e.g. Stargazer), an ImageCarousel renders
- * beside the text card. Otherwise the text card takes the full width.
+ * Five accommodations stack vertically. Each one is sticky-pinned to
+ * the viewport and fades in as the visitor scrolls. Each article also
+ * owns a SECOND ScrollTrigger that fires as the sticky pinning
+ * activates — `start: 'top top'` / `end: 'bottom top'` is the natural
+ * "this card is the active sticky" window. On enter, the matching
+ * camera override fires so the 3D world lands on this card's subject
+ * exactly when the user starts reading it. The 0.0001 camera lerp in
+ * CameraRig smooths the transition between adjacent overrides so the
+ * scrub still feels cinematic — no snap-lock.
  *
- * Camera motion is driven by CameraRig's progress-based keyframes
- * (one per accommodation). We DELIBERATELY no longer call
- * setCameraOverride from here — the override snap-locked the camera
- * per-card, breaking the cinematic scrub feel where the camera should
- * continuously walk between accommodations as the visitor scrolls.
+ * Primitive Camp's article also flips `primitiveCampActive` so
+ * WorldScene mounts the back-corner camp scene only when this card is
+ * in view — eliminates the flicker where the camp was appearing and
+ * disappearing during scroll based on a progress-window guess.
  */
 export function SceneStay() {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,9 +40,20 @@ export function SceneStay() {
       return;
     }
 
+    // Camera position for each accommodation is handled by CameraRig's
+    // DOM-measured keyframes (which read each article's data-accom and
+    // its offsetTop), so this scene only owns the text fades + the
+    // Primitive Camp mount flag. The fade triggers stay narrow ('top
+    // 70%' → 'bottom 30%') because they're about the COPY animating
+    // in/out; the camera follows scroll independently and continuously.
+
     const triggers: ScrollTrigger[] = [];
     items.forEach((item) => {
-      const st = ScrollTrigger.create({
+      const id = item.getAttribute('data-accom') ?? '';
+      const isPrimitive = id === 'primitive-camp';
+
+      // Text fade in/out tied to the article's visibility.
+      const fadeTrig = ScrollTrigger.create({
         trigger: item,
         start: 'top 70%',
         end: 'bottom 30%',
@@ -56,11 +72,35 @@ export function SceneStay() {
         },
       });
       gsap.set(item, { opacity: 0, y: 32 });
-      triggers.push(st);
+      triggers.push(fadeTrig);
+
+      // PrimitiveCamp 3D scene mount — WIDE trigger window. The camera
+      // holds at the Primitive Camp position from ~30vh BEFORE the
+      // article becomes sticky through ~60vh into its sticky window
+      // (90vh hold per CameraRig's per-section override). So the
+      // mount needs to cover from before the article enters viewport
+      // until well past it. 'top bottom' starts mounting as soon as
+      // the article's top hits the viewport bottom (~100vh before
+      // sticky); 'bottom top+=200' keeps it mounted ~200vh past the
+      // article's natural bottom, well outside any possible camera
+      // hold zone overlap.
+      if (isPrimitive) {
+        const mountTrig = ScrollTrigger.create({
+          trigger: item,
+          start: 'top bottom',
+          end: 'bottom top+=200',
+          onEnter: () => setPrimitiveCampActive(true),
+          onEnterBack: () => setPrimitiveCampActive(true),
+          onLeave: () => setPrimitiveCampActive(false),
+          onLeaveBack: () => setPrimitiveCampActive(false),
+        });
+        triggers.push(mountTrig);
+      }
     });
 
     return () => {
       triggers.forEach((t) => t.kill());
+      setPrimitiveCampActive(false);
     };
   }, [reduced]);
 

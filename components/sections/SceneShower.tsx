@@ -9,12 +9,12 @@ import { LoopingVideo } from '@/components/ui/LoopingVideo';
  * Shower in the Trees — bonus scene between Stay and Trails. The
  * treehouse shower is one of the property's signature features per
  * the live sanctuary page ("Best Treehouse Shower in Tennessee").
- * Sits in 3D world space alongside the property buildings; this DOM
- * overlay supplies the editorial caption + carousel.
  *
- * Camera motion handled by CameraRig's progress-based shower keyframe
- * (t=0.44). No setCameraOverride — that snap-locked the camera and
- * broke cinematic scrub between scenes.
+ * Camera: handled by CameraRig's DOM-measured keyframes — the rig
+ * reads this section's offsetTop on mount + resize and interpolates
+ * the camera between the adjacent shower/trails/stay positions
+ * continuously as the visitor scrolls. This component only owns the
+ * text fade in/out.
  */
 export function SceneShower() {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +29,8 @@ export function SceneShower() {
       return;
     }
 
-    const trig = ScrollTrigger.create({
+    // Text fade in/out
+    const fadeTrig = ScrollTrigger.create({
       trigger: ref.current,
       start: 'top 70%',
       end: 'bottom 30%',
@@ -43,8 +44,13 @@ export function SceneShower() {
     });
     gsap.set(items, { opacity: 0, y: 28 });
 
+    // Camera position handled by CameraRig's DOM-measured keyframes
+    // (it reads this section's offsetTop on mount + resize). No
+    // override from here so the keyframe interpolation between shower
+    // and adjacent scenes stays continuous.
+
     return () => {
-      trig.kill();
+      fadeTrig.kill();
     };
   }, [reduced]);
 

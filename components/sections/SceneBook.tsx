@@ -6,6 +6,7 @@ import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ACCOMMODATIONS, FULL_PROPERTY_BOOKING_URL } from '@/content/accommodations';
 import { LoopingVideo } from '@/components/ui/LoopingVideo';
+import { setBookActive } from '@/lib/cameraOverride';
 
 /**
  * Scene 8 — Come and see.
@@ -60,7 +61,24 @@ export function SceneBook() {
 
     gsap.set(items, { opacity: 0, y: 24 });
 
-    return () => { trig.kill(); };
+    // Mount trigger — BookingStage mounts while the booking section is
+    // anywhere near viewport. Camera position handled by CameraRig's
+    // DOM-measured keyframes.
+    const mountTrig = ScrollTrigger.create({
+      trigger: ref.current,
+      start: 'top bottom',
+      end: 'bottom top',
+      onEnter: () => setBookActive(true),
+      onEnterBack: () => setBookActive(true),
+      onLeave: () => setBookActive(false),
+      onLeaveBack: () => setBookActive(false),
+    });
+
+    return () => {
+      trig.kill();
+      mountTrig.kill();
+      setBookActive(false);
+    };
   }, [reduced]);
 
   return (

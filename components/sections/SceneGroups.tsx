@@ -59,6 +59,8 @@ export function SceneGroups() {
 
     gsap.set(items, { opacity: 0, y: 32 });
 
+    // Camera position handled by CameraRig's DOM-measured keyframes.
+
     return () => { trig.kill(); };
   }, [reduced]);
 

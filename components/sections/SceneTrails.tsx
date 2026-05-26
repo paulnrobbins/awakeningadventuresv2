@@ -6,6 +6,7 @@ import { gsap, ScrollTrigger } from '@/lib/gsap';
 import { sound } from '@/lib/sound';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { LoopingVideo } from '@/components/ui/LoopingVideo';
+import { setForestActive } from '@/lib/cameraOverride';
 
 /**
  * Scene 4 — The Trails. The rock bridge moment, told through
@@ -59,7 +60,28 @@ export function SceneTrails() {
 
     gsap.set(items, { opacity: 0, y: 32 });
 
-    return () => { trig.kill(); };
+    // Mount trigger — wider bounds (top bottom → bottom top) so the
+    // ForestScene 3D content mounts well before the visitor reaches
+    // it and stays mounted until they're fully past. Eliminates the
+    // "rock bridge / platform appears for a second then disappears"
+    // flicker from the old progress-window mount.
+    const mountTrig = ScrollTrigger.create({
+      trigger: ref.current,
+      start: 'top bottom',
+      end: 'bottom top',
+      onEnter: () => setForestActive(true),
+      onEnterBack: () => setForestActive(true),
+      onLeave: () => setForestActive(false),
+      onLeaveBack: () => setForestActive(false),
+    });
+
+    // Camera position handled by CameraRig's DOM-measured keyframes.
+
+    return () => {
+      trig.kill();
+      mountTrig.kill();
+      setForestActive(false);
+    };
   }, [reduced]);
 
   return (

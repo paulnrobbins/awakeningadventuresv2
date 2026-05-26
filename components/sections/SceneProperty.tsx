@@ -37,7 +37,15 @@ export function SceneProperty() {
       },
     });
 
-    return () => { tween.scrollTrigger?.kill(); tween.kill(); };
+    // Camera position is handled by CameraRig's DOM-measured keyframes
+    // (it queries this section's offsetTop on mount and rebuilds on
+    // resize), so no setCameraOverride from here — the override would
+    // SNAP the target and break the cinematic scrub between keyframes.
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
   }, [reduced]);
 
   return (

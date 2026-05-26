@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react';
 import { getLenis } from '@/lib/lenis';
 import { useDeviceTier } from '@/hooks/useDeviceTier';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { subscribeLakeActive } from '@/lib/cameraOverride';
+import {
+  subscribeLakeActive,
+  subscribeForestActive,
+  subscribeWelcomeActive,
+  subscribePrimitiveCampActive,
+  subscribeBookActive,
+} from '@/lib/cameraOverride';
 import { CameraRig } from './CameraRig';
 import { EnvironmentRig } from './EnvironmentRig';
 import { Firefly } from './Firefly';
@@ -16,6 +22,7 @@ import { PontoonBoat } from './PontoonBoat';
 import { TreeBank } from './TreeBank';
 import { WelcomeStage } from './WelcomeStage';
 import { BookingStage } from './BookingStage';
+import { PrimitiveCamp } from './PrimitiveCamp';
 
 /**
  * Everything inside the R3F Canvas.
@@ -34,7 +41,17 @@ export function WorldScene() {
   const tier = useDeviceTier();
   const reduced = useReducedMotion();
   const [progress, setProgress] = useState(0);
+
+  // All scene mount flags are now DOM-driven — each Scene component
+  // owns a ScrollTrigger that flips its flag when its <section> enters
+  // and leaves the viewport. This replaces the old guessed-from-
+  // progress windows that caused content to mount briefly then vanish
+  // when section heights changed.
   const [lakeActive, setLakeActive] = useState(false);
+  const [forestActive, setForestActive] = useState(false);
+  const [welcomeActive, setWelcomeActive] = useState(false);
+  const [primitiveActive, setPrimitiveActive] = useState(false);
+  const [bookActive, setBookActive] = useState(false);
 
   useEffect(() => {
     const lenis = getLenis();
@@ -46,33 +63,28 @@ export function WorldScene() {
     return () => lenis.off('scroll', handler);
   }, []);
 
-  // DOM-driven lake mount. SceneLake fires setLakeActive(true/false)
-  // based on its own ScrollTrigger range, so the 3D lake mounts when
-  // the DOM section enters and unmounts when it leaves — no progress
-  // math, no drift.
   useEffect(() => subscribeLakeActive(setLakeActive), []);
+  useEffect(() => subscribeForestActive(setForestActive), []);
+  useEffect(() => subscribeWelcomeActive(setWelcomeActive), []);
+  useEffect(() => subscribePrimitiveCampActive(setPrimitiveActive), []);
+  useEffect(() => subscribeBookActive(setBookActive), []);
 
   const starCount = tier === 'high' ? 6000 : tier === 'mid' ? 2500 : 800;
-  // Handheld shake peaks in the welcome scene's range
-  const cameraShake =
-    progress > 0.66 && progress < 0.80
-      ? 0.36
-      : reduced
-      ? 0
-      : 0.05;
+  // Handheld shake peaks while the Welcome stage is active.
+  const cameraShake = welcomeActive
+    ? 0.36
+    : reduced
+    ? 0
+    : 0.05;
 
-  // Forest / welcome / book still progress-driven (they're stable).
-  // Lake is now DOM-driven via lakeActive (set by SceneLake's
-  // ScrollTrigger), eliminating the "not in sync over the water" drift.
-  //
-  // Forest scene gated by `!lakeActive` so its tree banks vanish the
-  // instant the lake DOM section enters — otherwise dark trunks
-  // briefly composite over the water during the trails → lake camera
-  // transition.
-  const inForest = progress > 0.44 && progress < 0.56 && !lakeActive;
+  // Mounts derived from DOM flags, not progress windows. The lake
+  // flag still suppresses forest so dark trunks don't composite over
+  // the water during the trails → lake handoff.
+  const inForest = forestActive && !lakeActive;
   const inLakeRange = lakeActive;
-  const inWelcomeRange = progress > 0.64 && progress < 0.90 && !lakeActive;
-  const inBookRange = progress > 0.84;
+  const inWelcomeRange = welcomeActive && !lakeActive;
+  const inBookRange = bookActive;
+  const inPrimitiveRange = primitiveActive;
 
   return (
     <>
@@ -124,17 +136,21 @@ export function WorldScene() {
           <PontoonBoat startX={-50} endX={50} z={-88} baseY={0.35} period={110} />
         </>
       )}
+      {inPrimitiveRange && <PrimitiveCamp />}
       {inWelcomeRange && <WelcomeStage />}
       {inBookRange && <BookingStage />}
 
       {/* Sun motes — daytime equivalent of the night star field */}
       <StarField count={Math.round(starCount * 0.4)} radius={40} />
 
-      {/* Forest floor — ALWAYS mounted but at a footprint that doesn't
-          reach into the lake area. Covers the property zone (centered
-          around the buildings at z=-5, extending 40m forward and 30m
-          back, 60m wide). The lake at z=-30+ is well outside this
-          patch so the lake water never has to compete with it. */}
+      {/* Forest floor — ALWAYS mounted. 60×50 centered at origin so
+          its Z range is -25 to +25. Stops short of the lake (which
+          starts at z=-30 with shore at z=-28.4) so the LakeWater
+          plane can render under the dock and moored pontoon without
+          this floor occluding it. The Primitive Camp scene at world
+          z=-32 is past this floor's edge — PrimitiveCamp.tsx mounts
+          its own larger floor patch (the two scenes' mount flags
+          are mutually exclusive, so no conflict). */}
       <mesh position={[0, -0.18, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[60, 50, 1, 1]} />
         <meshStandardMaterial color="#3D4A30" roughness={0.96} />
